@@ -61,7 +61,7 @@ def main():
     root.configure(height=500, width=500)
     root.geometry("575x995")
     root.resizable(False, True)
-    root.title("PyPlant")
+    root.title("PyFloraPosude")
 
     login_window =  Login(root)
 
