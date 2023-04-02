@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models.models_1 import Base, Plants, Pots
+from models.models import Base, Plants, Pots
 
 engine = create_engine("sqlite:///inventory.db", echo=True)
 Base.metadata.create_all(engine, checkfirst=True) 
