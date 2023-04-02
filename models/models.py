@@ -1,9 +1,10 @@
 import sqlalchemy as db
 from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
+UserBase = declarative_base()
+InventoryBase = declarative_base()
 
-class User(Base):
+class User(UserBase):
     __tablename__= "users"
 
     id = db.Column(db.Integer, primary_key=True, unique=False) 
@@ -15,7 +16,7 @@ class User(Base):
     def __repr__(self) -> str:
         return self.name
 
-class Plants(Base):
+class Plants(InventoryBase):
     __tablename__= "plants"
 
     id = db.Column(db.String, primary_key=True, unique=False) 
@@ -26,7 +27,7 @@ class Plants(Base):
     p_code = db.Column(db.String, nullable=False)
     image_path = db.Column(db.String)
 
-class Pots(Base):
+class Pots(InventoryBase):
     __tablename__= "pots"  
 
     id = db.Column(db.String, primary_key=True, unique=False)  

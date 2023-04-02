@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models.models import Base, Plants, Pots
+from models.models import InventoryBase, Plants, Pots
 
 engine = create_engine("sqlite:///inventory.db", echo=True)
-Base.metadata.create_all(engine, checkfirst=True) 
+InventoryBase.metadata.create_all(engine, checkfirst=True) 
 Session = sessionmaker(bind=engine)
 session = Session()
 

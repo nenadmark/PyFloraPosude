@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models.models import Base, User
+from models.models import UserBase, User
 
 engine = create_engine("sqlite:///users.db", echo=True)
-Base.metadata.create_all(engine, checkfirst=True) 
+UserBase.metadata.create_all(engine, checkfirst=True) 
 Session = sessionmaker(bind=engine)
 session = Session()
 
