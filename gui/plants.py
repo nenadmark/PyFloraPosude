@@ -1,5 +1,5 @@
 import tkinter as tk
-from models.crud_inventory import get_data_plants
+from models.crud_inventory import get_data_plants, delete_plant
 
 class PlantsFrame:
     def __init__(self, parent):
@@ -9,6 +9,10 @@ class PlantsFrame:
         self.frame.config(bg="skyblue2")
 
         self.create_plants_frame()
+
+
+    def on_delete(self, plant):
+            delete_plant(plant.id)
 
     def create_plants_frame(self):
 
@@ -40,3 +44,9 @@ class PlantsFrame:
             label_temperature = tk.Label(self.plant_frame, text=f'Temperature: {plant.temperature}', font=self.font)
             label_temperature.grid(row=i, column=3, padx=5)
             label_temperature.config(bg="skyblue2")
+
+            delete_button = tk.Button(self.plant_frame, text="Delete", command=lambda: self.on_delete(plant))
+            delete_button.grid(row=i+1, column=1, pady=1, ipady=1)
+            delete_button.config(bg="lightblue1")
+            
+

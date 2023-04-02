@@ -15,4 +15,9 @@ def get_data_pots():
     data_plants = session.query(Pots).all()
     return data_plants
 
+def delete_plant(id):
+    del_plant = session.query(Plants).get(id)
 
+    if del_plant:
+        session.delete(del_plant)
+        session.commit()
