@@ -1,5 +1,4 @@
 import tkinter as tk
-import sqlalchemy as db
 from tkinter import ttk
 from tkinter import messagebox
 from gui.plants import PlantsFrame
@@ -8,7 +7,6 @@ from gui.meteo import MeteoFrame
 from models.models_1 import Base
 from models.crud_login import login_user
 
-
 class Login(tk.Toplevel):
     def __init__(self, root):
         super().__init__(root)
@@ -16,14 +14,25 @@ class Login(tk.Toplevel):
         self.root = root
         self.config(bg="slategray2")
 
-        username_label = tk.Label(self, text="Username:", font= ('Helvetica 15 underline'))
+        username_label = tk.Label(
+            self, text="Username:",
+            font= ('Helvetica 15 underline')
+        )
         username_label.config(bg="slategray2")
-        password_label = tk.Label(self, text="Password:", font= ('Helvetica 15 underline'))
+        password_label = tk.Label(
+            self,
+            text="Password:",
+            font= ('Helvetica 15 underline')
+        )
         password_label.config(bg="slategray2")
         self.email_entry = tk.Entry(self)
         self.password_entry = tk.Entry(self)
-        submit = tk.Button(self, text="Login", command=self.login)
-
+        submit = tk.Button(
+            self,
+            text="Login",
+            command=self.login
+        )
+        
         username_label.grid(row=0, column=0, sticky="e", padx=10, pady=10)
         self.email_entry.grid(row=0, column=1, sticky="ew", padx=10, pady=10)
         password_label.grid(row=1, column=0, sticky="e", padx=10, pady=10)
@@ -54,8 +63,6 @@ def main():
     root.geometry("575x995")
     root.resizable(False, True)
     root.title("PyPlant")
-
-
 
     login_window =  Login(root)
 

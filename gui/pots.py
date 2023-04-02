@@ -1,5 +1,5 @@
 import tkinter as tk
-from models.crud_inventory import get_data_pots
+from models.crud_inventory import get_data_pots , delete_pot
 
 class PotsFrame:
     def __init__(self, parent):
@@ -10,6 +10,9 @@ class PotsFrame:
 
         self.create_pots_frame()
 
+    def on_delete(self, pot):
+        delete_pot(pot.id)
+
     def create_pots_frame(self):
 
         data_pots = get_data_pots()
@@ -17,25 +20,54 @@ class PotsFrame:
         for i, pot in enumerate(data_pots):
 
             self.pot_frame = tk.LabelFrame(
-                self.frame, text=f'{pot.id} - {pot.name}', width=450, height=140,
-                font=self.font, bd=4)
+                self.frame,
+                text=f'{pot.id} - {pot.name}',
+                width=450,
+                height=140,
+                font=self.font,
+                bd=4
+            )
             self.pot_frame.grid(row=i, column=0, padx=5, pady=1, ipadx=60, ipady=1, sticky="w")
             self.pot_frame.config(bg="palegreen1")
 
             image = tk.PhotoImage(file=pot.image_path)
             image.configure(width=120, height=120)
-            label_image = tk.Label(self.pot_frame, image=image, font=self.font)
+            label_image = tk.Label(
+                self.pot_frame,
+                image=image,
+                font=self.font
+            )
             label_image.image = image
             label_image.grid(row=i, column=0, padx=5, pady=7)
         
-            label_name = tk.Label(self.pot_frame, text=f'Ø: {pot.radius}', font=self.font)
+            label_name = tk.Label(
+                self.pot_frame,
+                text=f'Ø: {pot.radius}',
+                font=self.font
+            )
             label_name.grid(row=i, column=1, padx=5)
             label_name.config(bg="palegreen1")
         
-            label_humidity = tk.Label(self.pot_frame, text=f'Name: {pot.name}', font=self.font)
+            label_humidity = tk.Label(
+                self.pot_frame,
+                text=f'Name: {pot.name}',
+                font=self.font
+            )
             label_humidity.grid(row=i, column=2, padx=5)
             label_humidity.config(bg="palegreen1")
         
-            label_temperature = tk.Label(self.pot_frame, text=f'Plant inside: {pot.p_code}', font=self.font)
+            label_temperature = tk.Label(
+                self.pot_frame,
+                text=f'Plant inside: {pot.p_code}',
+                font=self.font
+            )
             label_temperature.grid(row=i, column=3, padx=5)
             label_temperature.config(bg="palegreen1")
+
+            delete_button = tk.Button(
+                self.pot_frame,
+                text="Delete",
+                command=lambda: self.on_delete(pot)
+            )
+            delete_button.grid(row=i+1, column=1, pady=1, ipady=1)
+            delete_button.config(bg="lightgreen")
