@@ -25,7 +25,7 @@ class Login(tk.Toplevel):
         )
         password_label.config(bg="slategray2")
         self.email_entry = tk.Entry(self)
-        self.password_entry = tk.Entry(self)
+        self.password_entry = tk.Entry(self, show="*")
         submit = tk.Button(
             self,
             text="Login",
@@ -48,11 +48,11 @@ class Login(tk.Toplevel):
                 print("OK LOGIN")
                 self.withdraw()
                 self.root.deiconify()
-                messagebox.showinfo("Success.", f"Welcome {user.name}")
+                messagebox.showinfo("Success", f"Welcome: {user.name}")
             else:
-                messagebox.showinfo("Error.", f"Wrong email or password")
+                messagebox.showinfo("Error", f"Wrong email or password")
         else:
-            messagebox.showerror("Error.", f"Wrong email or password")
+            messagebox.showerror("Error", f"Wrong email or password")
 
 def main():
     root = tk.Tk()
