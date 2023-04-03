@@ -2,9 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.models import UserBase, User
 
-engine = create_engine("sqlite:///users.db", echo=True)
-UserBase.metadata.create_all(engine, checkfirst=True) 
-Session = sessionmaker(bind=engine)
+engine_users = create_engine("sqlite:///users.db", echo=True)
+UserBase.metadata.create_all(engine_users, checkfirst=True) 
+Session = sessionmaker(bind=engine_users)
 session = Session()
 
 def login_user(login_email, login_password):

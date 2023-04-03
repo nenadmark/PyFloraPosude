@@ -1,15 +1,17 @@
 import tkinter as tk
+import sqlalchemy as db
+from sqlalchemy.orm import sessionmaker
 from tkinter import ttk
 from tkinter import messagebox
 from gui.plants import PlantsFrame
 from gui.pots import PotsFrame
 from gui.meteo import MeteoFrame
 from models.crud_users import login_user
+from models.models import MeteoBase
 
 class Login(tk.Toplevel):
     def __init__(self, root):
         super().__init__(root)
-
         self.root = root
         self.config(bg="slategray2")
 
@@ -55,6 +57,12 @@ class Login(tk.Toplevel):
             messagebox.showerror("Error", f"Wrong email or password")
 
 def main():
+    engine_readings = db.create_engine("sqlite:///readings.db", echo=True)
+    MeteoBase.metadata.create_all(engine_readings, checkfirst=True)
+    Session = sessionmaker(bind=engine_readings)
+
+    session = Session()
+
     root = tk.Tk()
     root.withdraw()
     root.resizable(False, False)
@@ -71,7 +79,7 @@ def main():
 
     plants_frame = PlantsFrame(notebook)
     pots_frame = PotsFrame(notebook)
-    meteo_frame = MeteoFrame(notebook)
+    meteo_frame = MeteoFrame(notebook,session)
 
     notebook.add(plants_frame.frame, text="Plants")
     notebook.add(pots_frame.frame, text="Pots")
