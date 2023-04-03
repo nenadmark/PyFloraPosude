@@ -50,7 +50,7 @@ class MeteoFrame:
         self.sync_button = tk.Button(
                 self.frame,
                 text="Sync",
-                #command=lambda: self.
+                command=lambda: self.create_indoor_frame()
             )
         self.sync_button.grid(row=0, column=0, pady=5, ipady=5)
         self.sync_button.config(bg="lightblue1")
@@ -69,7 +69,7 @@ class MeteoFrame:
 
         def refresh_values():
             self.create_inside_readings()
-            self.frame.after(10000, refresh_values)
+            self.frame.after(60000, refresh_values)
 
         self.create_inside_readings()
         refresh_values()

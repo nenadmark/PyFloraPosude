@@ -1,5 +1,6 @@
 import tkinter as tk
 import sqlalchemy as db
+from tkinter import ttk
 from sqlalchemy.orm import sessionmaker
 from tkinter import ttk
 from tkinter import messagebox
@@ -65,10 +66,9 @@ def main():
 
     root = tk.Tk()
     root.withdraw()
-    root.resizable(False, False)
+    root.resizable(True, True)
     root.configure(height=500, width=500)
     root.geometry("575x995")
-    root.resizable(False, True)
     root.title("PyFloraPosude")
 
     login_window =  Login(root)
@@ -89,4 +89,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
