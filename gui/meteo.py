@@ -24,16 +24,16 @@ session = Session()
 
 class DataFaker:
     def generate_temperature_reading(self, response_temp):
-        return round(rd.uniform(float(response_temp) - 5, float(response_temp) + 5), 1)
+        return round(rd.uniform(float(response_temp) - 3, float(response_temp) + 3), 1)
 
     def generate_humidity_reading(self, response_humidity):
         print(type(response_humidity))
-        min_value = response_humidity - 5 if response_humidity - 5 >= 0 else 0
-        max_value = response_humidity + 5 if response_humidity + 5 <= 100 else 0
+        min_value = response_humidity - 4 if response_humidity - 4 >= 0 else 0
+        max_value = response_humidity + 4 if response_humidity + 4 <= 100 else 0
         return round(rd.uniform(float(min_value), float(max_value)), 1)
 
     def generate_pressure_reading(self, response_pressure):
-        return round(rd.uniform(float(response_pressure) - 8, float(response_pressure) + 8), 1)
+        return round(rd.uniform(float(response_pressure) - 6, float(response_pressure) + 8), 1)
 
 
 
