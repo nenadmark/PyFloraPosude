@@ -2,7 +2,25 @@ import requests
 import xmltodict
 import tkinter as tk
 import random as rd
+import matplotlib.pyplot as plt
+import pandas as pd
 from models.crud_meteo import create_temperature_reading, create_humidity_reading, create_pressure_reading
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from models.crud_meteo import TemperatureReading, HumidityReading, PressureReading
+
+
+
+
+
+
+# Define the SQLAlchemy engine and session
+engine = create_engine('sqlite:///readings.db')
+Session = sessionmaker(bind=engine)
+session = Session()
+
+
+
 
 class DataFaker:
     def generate_temperature_reading(self, response_temp):
@@ -28,10 +46,18 @@ class MeteoFrame:
         self.frame.config(bg="burlywood1")
 
         self.get_outdoor_data()
+
         self.create_sync_button()
+
+        self.create_temperature_graph_button()
+        self.create_humidity_graph_button()
+        self.create_pressure_graph_button()
+
+
         self.create_indoor_frame()
         self.create_outdoor_frame()
         self.create_wind_info_frame()
+        #
 
 
     def get_outdoor_data(self):
@@ -49,11 +75,130 @@ class MeteoFrame:
     def create_sync_button(self):
         self.sync_button = tk.Button(
                 self.frame,
-                text="Sync",
+                text="Sync data",
                 command=lambda: self.create_indoor_frame()
             )
         self.sync_button.grid(row=0, column=0, pady=5, ipady=5)
         self.sync_button.config(bg="lightblue1")
+
+
+
+
+    ## TEMP ###########################################################################
+    def create_temperature_graph_button(self):
+        self.temp_graph_button = tk.Button(
+                self.frame,
+                text="Temperature graph",
+                command=lambda: self.create_temperature_graph_window()
+            )
+        self.temp_graph_button.grid(row=1, column=0, pady=5, ipady=5)
+        self.temp_graph_button.config(bg="lightblue1")
+
+    def create_temperature_graph_window(self):
+        temperatures = []
+        timestamps = []
+
+        temp_df = pd.read_sql(session.query(TemperatureReading).statement, engine)
+        temp_df.set_index(pd.to_datetime(temp_df['timestamp']), inplace=True)
+        temp_df = temp_df.iloc[::5, :]
+
+        for reading in session.query(TemperatureReading):
+            temperatures.append(reading.value)
+            timestamps.append(reading.timestamp)
+
+        # Create a bar graph of the temperature data
+        temp_df['value'].plot(kind='line')
+        plt.title('Temperature vs. Time')
+        plt.xlabel('Timestamp')
+        plt.ylabel('Temperature')
+    
+        # Display the graph in a new window
+        plt.show()
+
+    ## HUMIDITY
+    def create_humidity_graph_button(self):
+        self.humid_graph_button = tk.Button(
+                self.frame,
+                text="Humidity graph",
+                command=lambda: self.create_humidity_graph_window()
+            )
+        self.humid_graph_button.grid(row=2, column=0, pady=5, ipady=5)
+        self.humid_graph_button.config(bg="lightblue1")
+
+    def create_humidity_graph_window(self):
+        humidities = []
+        timestamps = []
+
+        humid_df = pd.read_sql(session.query(HumidityReading).statement, engine)
+        humid_df.set_index(pd.to_datetime(humid_df['timestamp']), inplace=True)
+        humid_df = humid_df.iloc[::5, :]
+
+
+        for reading in session.query(HumidityReading):
+            humidities.append(reading.value)
+            timestamps.append(reading.timestamp)
+
+        # Create a bar graph of the temperature data
+        humid_df['value'].plot(kind='line')
+        plt.title('Humiditiy vs. Time')
+        plt.xlabel('Timestamp')
+        plt.ylabel('Humiditiy')
+    
+        # Display the graph in a new window
+        plt.show()
+    
+    ## PRESSURE
+    def create_pressure_graph_button(self):
+        self.press_graph_button = tk.Button(
+                self.frame,
+                text="Pressure graph",
+                command=lambda: self.create_pressure_graph_window()
+            )
+        self.press_graph_button.grid(row=3, column=0, pady=5, ipady=5)
+        self.press_graph_button.config(bg="lightblue1")
+
+    def create_pressure_graph_window(self):
+        pressures = []
+        timestamps = []
+
+        press_df = pd.read_sql(session.query(PressureReading).statement, engine)
+        press_df.set_index(pd.to_datetime(press_df['timestamp']), inplace=True)
+        press_df = press_df.iloc[::5, :]
+
+
+        for reading in session.query(PressureReading):
+            pressures.append(reading.value)
+            timestamps.append(reading.timestamp)
+
+        # Create a bar graph of the temperature data
+        press_df['value'].plot(kind='line')
+        plt.title('Pressure vs. Time')
+        plt.xlabel('Timestamp')
+        plt.ylabel('Pressure')
+    
+        # Display the graph in a new window
+        plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def create_indoor_frame(self):
         self.indoor_frame = tk.LabelFrame(
@@ -64,7 +209,7 @@ class MeteoFrame:
             font=self.font_header,
             bd=6
         )
-        self.indoor_frame.grid(row=1, column=0, ipadx=20, ipady=20, padx=70, pady=30)
+        self.indoor_frame.grid(row=4, column=0, ipadx=20, ipady=20, padx=70, pady=30)
         self.indoor_frame.config(bg="burlywood1")
 
         def refresh_values():
@@ -83,7 +228,7 @@ class MeteoFrame:
             font=self.font_header,
             bd=6
         )
-        self.outdoor_frame.grid(row=2, column=0, ipadx=20, ipady=20, padx=70, pady=30)
+        self.outdoor_frame.grid(row=5, column=0, ipadx=20, ipady=20, padx=70, pady=30)
         self.outdoor_frame.config(bg="burlywood1")
 
         self.create_outside_readings()
@@ -97,7 +242,7 @@ class MeteoFrame:
             font=self.font_header,
             bd=6
         )
-        self.wind_info_frame.grid(row=3, column=0, ipadx=20, ipady=20, padx=70, pady=30)
+        self.wind_info_frame.grid(row=6, column=0, ipadx=20, ipady=20, padx=70, pady=30)
         self.wind_info_frame.config(bg="burlywood1")
 
         self.create_wind_info_readings()
