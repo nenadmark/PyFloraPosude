@@ -163,7 +163,7 @@ class MeteoFrame:
 
         press_df = pd.read_sql(session.query(PressureReading).statement, engine)
         press_df.set_index(pd.to_datetime(press_df['timestamp']), inplace=True)
-        press_df = press_df.iloc[::5, :]
+        #press_df = press_df.iloc[::5, :]
 
 
         for reading in session.query(PressureReading):
