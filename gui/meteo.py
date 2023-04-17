@@ -214,7 +214,7 @@ class MeteoFrame:
 
         def refresh_values():
             self.create_inside_readings()
-            self.frame.after(60000, refresh_values)
+            self.frame.after(900000, refresh_values)
 
         self.create_inside_readings()
         refresh_values()
