@@ -21,14 +21,17 @@ class Login(tk.Toplevel):
             font= ('Helvetica 15 underline')
         )
         username_label.config(bg="slategray2")
+
         password_label = tk.Label(
             self,
             text="Password:",
             font= ('Helvetica 15 underline')
         )
         password_label.config(bg="slategray2")
+
         self.email_entry = tk.Entry(self)
         self.password_entry = tk.Entry(self, show="*")
+        
         submit = tk.Button(
             self,
             text="Login",
@@ -62,39 +65,32 @@ def main():
     MeteoBase.metadata.create_all(engine_readings, checkfirst=True)
     Session = sessionmaker(bind=engine_readings)
     session = Session()
+
     root = tk.Tk()
     root.withdraw()
     root.resizable(False, False)
-    #root.configure(height=1, width=1)
     root.geometry("575x995")
     root.title("PyFloraPosude")
+
     login_window = Login(root)
-    # Create a canvas with scrollbars
+
     canvas = tk.Canvas(root, bg="white", height=970, width=550)
     canvas.grid(row=0, column=0, sticky="nsew")
-
-    #def _on_mousewheel(self, event):
-        #self.canvas.yview_scroll(-1*(event.delta/120), "units")
-    #canvas.bind_all("<MouseWheel>", _on_mousewheel)
-
-
-
     scrollbar_y = tk.Scrollbar(root, orient="vertical", command=canvas.yview)
-    #scrollbar_x = tk.Scrollbar(root, orient="horizontal", command=canvas.xview)
     canvas.configure(yscrollcommand=scrollbar_y.set)
     scrollbar_y.grid(row=0, column=1, sticky="ns")
-    #scrollbar_x.grid(row=1, column=0, sticky="ew")
     notebook_frame = ttk.Frame(canvas)
     canvas.create_window((0, 0), window=notebook_frame, anchor="nw")
     notebook = ttk.Notebook(notebook_frame)
     notebook.grid(row=0, column=0)
+
     plants_frame = PlantsFrame(notebook)
     pots_frame = PotsFrame(notebook)
     meteo_frame = MeteoFrame(notebook, session)
     notebook.add(plants_frame.frame, text="Plants")
     notebook.add(pots_frame.frame, text="Pots")
     notebook.add(meteo_frame.frame, text="Weather")
-    # Update scroll region after widgets are placed on the canvas
+
     notebook_frame.update_idletasks()
     canvas.configure(scrollregion=canvas.bbox("all"))
     root.mainloop()

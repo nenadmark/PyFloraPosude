@@ -52,7 +52,6 @@ class HumidityReading(MeteoBase):
     value = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=dt.datetime.now)
 
-
 class PressureReading(MeteoBase):
     __tablename__ = "pressure_readings"
 

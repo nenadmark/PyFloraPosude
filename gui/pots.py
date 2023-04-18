@@ -3,7 +3,6 @@ from models.crud_inventory import get_data_pots , delete_pot
 
 class PotsFrame:
     def __init__(self, parent):
-        #self.session = session
         self.frame = tk.Frame(parent)
         self.font = ("TimesNewRoman", 10, "bold")
         self.frame.config(bg="palegreen1")
