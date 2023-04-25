@@ -68,7 +68,7 @@ def main():
 
     root = tk.Tk()
     root.withdraw()
-    root.resizable(False, False)
+    root.resizable(False, True)
     root.geometry("575x995")
     root.title("PyFloraPosude")
 
