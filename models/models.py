@@ -9,7 +9,7 @@ MeteoBase = declarative_base()
 class User(UserBase):
     __tablename__= "users"
 
-    id = db.Column(db.Integer, primary_key=True, unique=False) 
+    id = db.Column(db.Integer, primary_key=True) 
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
     is_admin= db.Column(db.Boolean, default=False)
@@ -21,7 +21,7 @@ class User(UserBase):
 class Plants(InventoryBase):
     __tablename__= "plants"
 
-    id = db.Column(db.String, primary_key=True, unique=False)
+    id = db.Column(db.String, primary_key=True)
     name = db.Column(db.String, nullable=False)
     sort = db.Column(db.String, nullable=False)
     humidity = db.Column(db.Integer, nullable=False)
@@ -32,7 +32,7 @@ class Plants(InventoryBase):
 class Pots(InventoryBase):
     __tablename__= "pots"  
 
-    id = db.Column(db.String, primary_key=True, unique=False)
+    id = db.Column(db.String, primary_key=True)
     name = db.Column(db.String, nullable=False)
     radius = db.Column(db.Integer, nullable=False)
     p_code = db.Column(db.String, nullable=False)
