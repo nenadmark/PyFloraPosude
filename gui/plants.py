@@ -62,6 +62,16 @@ class PlantsFrame:
             label_temperature.grid(row=i, column=3, padx=5)
             label_temperature.config(bg="skyblue2")
 
+            ##
+            label_status = tk.Label(
+                self.plant_frame,
+                text=f'Status: Needs Watering',
+                font=self.font
+            )
+            label_status.grid(row=i, column=4, padx=5)
+            label_status.config(bg="skyblue2")
+            ##
+
             delete_button = tk.Button(
                 self.plant_frame,
                 text="Delete",
@@ -69,5 +79,17 @@ class PlantsFrame:
             )
             delete_button.grid(row=i+1, column=1, pady=1, ipady=1)
             delete_button.config(bg="lightblue1")
+
+            ##
+            edit_button = tk.Button(
+                self.plant_frame,
+                text="Edit",
+                command=lambda: self.on_delete(plant)
+            )
+            edit_button.grid(row=i+1, column=2, pady=1, ipady=1)
+            edit_button.config(bg="lightblue1")
+            ##
+
+            
             
 

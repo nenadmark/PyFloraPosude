@@ -25,7 +25,10 @@ class DataFaker:
 
     def generate_pressure_reading(self, response_pressure):
         return round(rd.uniform(float(response_pressure) - 6, float(response_pressure) + 8), 1)
-
+    
+    def generate_plant_readings(self, response_temp, response_humidity, response_pressure):
+        pass
+                                
 class MeteoFrame:
     def __init__(self, parent, session):
         self.frame = tk.Frame(parent)
