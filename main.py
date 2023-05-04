@@ -81,6 +81,12 @@ def main():
     scrollbar_y.grid(row=0, column=1, sticky="ns")
     notebook_frame = ttk.Frame(canvas)
     canvas.create_window((0, 0), window=notebook_frame, anchor="nw")
+    
+    def on_mouse_wheel(event):
+        canvas.yview_scroll(-int(event.delta / 120), "units")
+
+    canvas.bind_all("<MouseWheel>", on_mouse_wheel)
+
     notebook = ttk.Notebook(notebook_frame)
     notebook.grid(row=0, column=0)
 
