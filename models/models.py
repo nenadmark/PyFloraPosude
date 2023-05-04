@@ -32,6 +32,10 @@ class Plants(InventoryBase):
     p_code = Column(String, ForeignKey('pots.id'))
     image_path = db.Column(db.String)
 
+    ref_temperature = db.Column(db.Integer, nullable=False, default=20)
+    ref_humidity = db.Column(db.Integer, nullable=False, default=50)
+    ref_salinity = db.Column(db.Integer, nullable=False, default=1.8)
+
     pot = relationship("Pots", back_populates="plants")
 
 class Pots(InventoryBase):
