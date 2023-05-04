@@ -1,5 +1,6 @@
 import tkinter as tk
-from models.crud_inventory import get_data_pots , delete_pot
+from tkinter import Toplevel, Label, Entry, StringVar, Button
+from models.crud_inventory import get_data_pots , delete_pot, update_pot
 
 class PotsFrame:
     def __init__(self, parent):
@@ -70,3 +71,50 @@ class PotsFrame:
             )
             delete_button.grid(row=i+1, column=1, pady=1, ipady=1)
             delete_button.config(bg="lightgreen")
+
+            edit_button = tk.Button(
+                self.pot_frame,
+                text="Edit",
+                command=lambda current_plant=pot: self.open_edit_pot_popup(current_plant)
+            )
+            edit_button.grid(row=i+1, column=2, pady=1, ipady=1)
+            edit_button.config(bg="lightgreen")
+    
+
+
+
+
+
+
+
+    
+    def open_edit_pot_popup(self, pot):
+        def save_changes(pot):
+            update_pot(
+                pot.id,
+                name=name_var.get(),
+                radius=int(radius_var.get()),
+                image_path=image_path_var.get(),
+            )
+            popup.destroy()
+
+        popup = Toplevel(self.pot_frame)
+        popup.title("Edit Pot")
+
+        name_var = StringVar(value=pot.name)
+        radius_var = StringVar(value=pot.radius)
+        image_path_var = StringVar(value=pot.image_path)
+
+        Label(popup, text="Name:").grid(row=0, column=0)
+        Entry(popup, textvariable=name_var).grid(row=0, column=1)
+
+        Label(popup, text="Radius:").grid(row=1, column=0)
+        Entry(popup, textvariable=radius_var).grid(row=1, column=1)
+
+        Label(popup, text="Image Path:").grid(row=2, column=0)
+        Entry(popup, textvariable=image_path_var).grid(row=2, column=1)
+
+        save_button = Button(popup, text="Save Changes", command=lambda: save_changes(pot))
+        save_button.grid(row=3, column=1, pady=5)
+
+        popup.mainloop()

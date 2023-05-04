@@ -1,5 +1,6 @@
 import tkinter as tk
-from models.crud_inventory import get_data_plants, delete_plant
+from tkinter import Toplevel, Label, Entry, StringVar, Button
+from models.crud_inventory import get_data_plants, delete_plant, update_plant
 
 class PlantsFrame:
     def __init__(self, parent):
@@ -84,12 +85,65 @@ class PlantsFrame:
             edit_button = tk.Button(
                 self.plant_frame,
                 text="Edit",
-                command=lambda: self.on_delete(plant)
+                command=lambda current_plant=plant: self.open_edit_plant_popup(current_plant)
             )
             edit_button.grid(row=i+1, column=2, pady=1, ipady=1)
             edit_button.config(bg="lightblue1")
-            ##
 
+
+
+
+
+
+
+
+
+
+    def open_edit_plant_popup(self, plant):
+        def save_changes(plant):
+            update_plant(
+                plant.id,
+                name=name_var.get(),
+                sort=sort_var.get(),
+                humidity=int(humidity_var.get()),
+                temperature=int(temperature_var.get ()),
+                p_code=p_code_var.get(),
+                image_path=image_path_var.get(),
+            )
+            popup.destroy()
+
+        popup = Toplevel(self.plant_frame)
+        popup.title("Edit Plant")
+
+        name_var = StringVar(value=plant.name)
+        sort_var = StringVar(value=plant.sort)
+        humidity_var = StringVar(value=plant.humidity)
+        temperature_var = StringVar(value=plant.temperature)
+        p_code_var = StringVar(value=plant.p_code)
+        image_path_var = StringVar(value=plant. image_path)
+
+        Label(popup, text="Name:").grid(row=0,  column=0)
+        Entry(popup, textvariable=name_var).grid    (row=0, column=1)
+
+        Label(popup, text="Sort:").grid(row=1,  column=0)
+        Entry(popup, textvariable=sort_var).grid    (row=1, column=1)
+
+        Label(popup, text="Humidity:").grid(row=2,  column=0)
+        Entry(popup, textvariable=humidity_var).grid    (row=2, column=1)
+
+        Label(popup, text="Temperature:").grid(row=3,   column=0)
+        Entry(popup, textvariable=temperature_var). grid(row=3, column=1)
+
+        Label(popup, text="P_Code:").grid(row=4,    column=0)
+        Entry(popup, textvariable=p_code_var).grid  (row=4, column=1)
+
+        Label(popup, text="Image Path:").grid(row=5,    column=0)
+        Entry(popup, textvariable=image_path_var).grid  (row=5, column=1)
+
+        save_button = Button(popup, text="Save  Changes", command=lambda: save_changes(plant))
+        save_button.grid(row=6, column=1, pady=5)
+
+        popup.mainloop()
             
             
 
