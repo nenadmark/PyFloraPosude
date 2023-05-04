@@ -28,8 +28,8 @@ class Plants(InventoryBase):
     name = db.Column(db.String, nullable=False)
     sort = db.Column(db.String, nullable=False)
     humidity = db.Column(db.Integer, nullable=False)
-    pot_id = Column(String, ForeignKey('pots.id'))
-    p_code = db.Column(db.String, nullable=False)
+    temperature = Column(Integer, nullable=False)
+    p_code = Column(String, ForeignKey('pots.id'))
     image_path = db.Column(db.String)
 
     pot = relationship("Pots", back_populates="plants")
