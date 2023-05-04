@@ -139,7 +139,7 @@ class PlantsFrame:
         Label(popup, text="Temperature:").grid(row=3,   column=0)
         Entry(popup, textvariable=temperature_var). grid(row=3, column=1)
 
-        Label(popup, text="P_Code:").grid(row=4,    column=0)
+        Label(popup, text="Pot:").grid(row=4,    column=0)
         Entry(popup, textvariable=p_code_var).grid  (row=4, column=1)
 
         Label(popup, text="Image Path:").grid(row=5,    column=0)
