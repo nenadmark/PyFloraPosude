@@ -58,7 +58,7 @@ class PotsFrame:
         
             label_plant_inside = tk.Label(
                 self.pot_frame,
-                text=f'Plants inside: {", ".join([plant.id for plant in pot.plants]) if pot.plants else "None"}',
+                text=f'Plant inside: {", ".join([plant.id for plant in pot.plants]) if pot.plants else "None"}',
                 font=self.font
             )
             #print(pot.plants)
