@@ -44,6 +44,8 @@ class Login(tk.Toplevel):
         self.password_entry.grid(row=1, column=1, sticky="ew", padx=10, pady=10)
         submit.grid(row=2, column=1, sticky="e", padx=10, pady=10)
 
+        self.bind('<Return>', lambda event: self.login())
+
     def login(self):
         email_login = self.email_entry.get()
         password_login = self.password_entry.get()
@@ -54,11 +56,11 @@ class Login(tk.Toplevel):
                 print("OK LOGIN")
                 self.withdraw()
                 self.root.deiconify()
-                messagebox.showinfo("Success", f"Welcome: {user.name}")
+                messagebox.showinfo("Success.", f"Welcome: {user.name}")
             else:
-                messagebox.showinfo("Error", f"Wrong email or password")
+                messagebox.showinfo("Error.", f"Wrong email or password")
         else:
-            messagebox.showerror("Error", f"Wrong email or password")
+            messagebox.showerror("Error.", f"Wrong email or password")
 
 def main():
     engine_readings = db.create_engine("sqlite:///readings.db", echo=True)
