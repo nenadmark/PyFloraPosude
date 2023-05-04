@@ -69,12 +69,12 @@ def main():
     root = tk.Tk()
     root.withdraw()
     root.resizable(False, True)
-    root.geometry("575x995")
+    root.geometry("675x995")
     root.title("PyFloraPosude")
 
     login_window = Login(root)
 
-    canvas = tk.Canvas(root, bg="white", height=970, width=550)
+    canvas = tk.Canvas(root, bg="white", height=970, width=650)
     canvas.grid(row=0, column=0, sticky="nsew")
     scrollbar_y = tk.Scrollbar(root, orient="vertical", command=canvas.yview)
     canvas.configure(yscrollcommand=scrollbar_y.set)
