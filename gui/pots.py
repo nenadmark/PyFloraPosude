@@ -56,13 +56,14 @@ class PotsFrame:
             label_humidity.grid(row=i, column=2, padx=5)
             label_humidity.config(bg="palegreen1")
         
-            label_temperature = tk.Label(
+            label_plant_inside = tk.Label(
                 self.pot_frame,
-                text=f'Plant inside: {pot.plants}',
+                text=f'Plants inside: {", ".join([plant.id for plant in pot.plants]) if pot.plants else "None"}',
                 font=self.font
             )
-            label_temperature.grid(row=i, column=3, padx=5)
-            label_temperature.config(bg="palegreen1")
+            #print(pot.plants)
+            label_plant_inside.grid(row=i, column=3, padx=5)
+            label_plant_inside.config(bg="palegreen1")
 
             delete_button = tk.Button(
                 self.pot_frame,
