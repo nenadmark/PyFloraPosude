@@ -1,6 +1,8 @@
 import sqlalchemy as db
 import datetime as dt
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
 UserBase = declarative_base()
@@ -26,12 +28,11 @@ class Plants(InventoryBase):
     name = db.Column(db.String, nullable=False)
     sort = db.Column(db.String, nullable=False)
     humidity = db.Column(db.Integer, nullable=False)
-    pot_id = db.Column(db.String, db.ForeignKey('pots.id'))
+    pot_id = Column(String, ForeignKey('pots.id'))
     p_code = db.Column(db.String, nullable=False)
     image_path = db.Column(db.String)
 
-    pot = db.relationship("Pots", back_populates="plants")
-
+    pot = relationship("Pots", back_populates="plants")
 
 class Pots(InventoryBase):
     __tablename__= "pots"  
@@ -41,8 +42,7 @@ class Pots(InventoryBase):
     radius = db.Column(db.Integer, nullable=False)
     image_path = db.Column(db.String, nullable=False)
 
-    plants = db.relationship("Plants", back_populates="pot")
-
+    plants = relationship("Plants", back_populates="pot")
 
 class TemperatureReading(MeteoBase):
     __tablename__ = "temperature_readings"
