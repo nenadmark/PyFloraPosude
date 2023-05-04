@@ -57,7 +57,7 @@ class PotsFrame:
         
             label_temperature = tk.Label(
                 self.pot_frame,
-                text=f'Plant inside: {pot.p_code}',
+                text=f'Plant inside: {pot.plants}',
                 font=self.font
             )
             label_temperature.grid(row=i, column=3, padx=5)
