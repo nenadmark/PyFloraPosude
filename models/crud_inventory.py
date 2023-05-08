@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models.models import InventoryBase, Plants, Pots
+from models.models import Base, Plants, Pots
 import random
 
-engine_inventory = create_engine("sqlite:///inventory.db", echo=True)
-InventoryBase.metadata.create_all(engine_inventory, checkfirst=True) 
+engine_inventory = create_engine("sqlite:///PyFloraDB.db", echo=True)
+Base.metadata.create_all(engine_inventory, checkfirst=True) 
 Session = sessionmaker(bind=engine_inventory)
 session = Session()
 

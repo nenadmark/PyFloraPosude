@@ -5,11 +5,14 @@ from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
+"""
 UserBase = declarative_base()
 InventoryBase = declarative_base()
-MeteoBase = declarative_base()
+MeteoBase = declarative_base()"""
 
-class User(UserBase):
+Base = declarative_base()
+
+class User(Base):
     __tablename__= "users"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -21,7 +24,7 @@ class User(UserBase):
     def __repr__(self) -> str:
         return self.name
 
-class Plants(InventoryBase):
+class Plants(Base):
     __tablename__= "plants"
 
     id = db.Column(db.String, primary_key=True)
@@ -38,7 +41,7 @@ class Plants(InventoryBase):
 
     pot = relationship("Pots", back_populates="plant", uselist=False)
 
-class Pots(InventoryBase):
+class Pots(Base):
     __tablename__= "pots"  
 
     id = db.Column(db.String, primary_key=True)
@@ -48,7 +51,7 @@ class Pots(InventoryBase):
 
     plant = relationship("Plants", back_populates="pot", uselist=False)
 
-class TemperatureReading(MeteoBase):
+class TemperatureReading(Base):
     __tablename__ = "temperature_readings"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -56,7 +59,7 @@ class TemperatureReading(MeteoBase):
     timestamp = db.Column(db.DateTime, nullable=False, default=dt.datetime.now)
     plant = db.Column(db.String)
 
-class HumidityReading(MeteoBase):
+class HumidityReading(Base):
     __tablename__ = "humidity_readings"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -64,7 +67,7 @@ class HumidityReading(MeteoBase):
     timestamp = db.Column(db.DateTime, nullable=False, default=dt.datetime.now)
     plant = db.Column(db.String)
 
-class PressureReading(MeteoBase):
+class PressureReading(Base):
     __tablename__ = "pressure_readings"
 
     id = db.Column(db.Integer, primary_key=True)

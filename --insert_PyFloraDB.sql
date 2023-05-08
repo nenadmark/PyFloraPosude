@@ -1,5 +1,7 @@
 -- SQLite
 
+INSERT INTO users (id, name, email, is_admin, password) VALUES ("01","admin", "admin", true, "0000");
+
 INSERT INTO plants (id, name, sort, humidity, temperature, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("PL1", "Crocatum", "Piper", 50, 22, "PT1", "assets\\thumbs\plants\Crocatum_130x130.png", 20, 50, 1.8);
 
 INSERT INTO plants (id, name, sort, humidity, temperature, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("PL2", "Deliciosa Variegated", "Monstera", 60, 23, "PT2", "assets\\thumbs\plants\Deliciosa_Variegated_130x130.png", 20, 50, 1.8);

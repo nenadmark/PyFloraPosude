@@ -8,7 +8,7 @@ from gui.plants import PlantsFrame
 from gui.pots import PotsFrame
 from gui.meteo import MeteoFrame
 from models.crud_users import login_user
-from models.models import MeteoBase
+from models.models import Base
 
 class Login(tk.Toplevel):
     def __init__(self, root):
@@ -63,8 +63,8 @@ class Login(tk.Toplevel):
             messagebox.showerror("Error.", f"Wrong email or password")
 
 def main():
-    engine_readings = db.create_engine("sqlite:///readings.db", echo=True)
-    MeteoBase.metadata.create_all(engine_readings, checkfirst=True)
+    engine_readings = db.create_engine("sqlite:///PyFloraDB.db", echo=True)
+    Base.metadata.create_all(engine_readings, checkfirst=True)
     Session = sessionmaker(bind=engine_readings)
     session = Session()
 

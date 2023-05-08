@@ -9,7 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.crud_meteo import TemperatureReading, HumidityReading, PressureReading
 
-engine = create_engine('sqlite:///readings.db')
+engine = create_engine('sqlite:///PyFloraDB.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
