@@ -54,6 +54,7 @@ class TemperatureReading(MeteoBase):
     id = db.Column(db.Integer, primary_key=True)
     value = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=dt.datetime.now)
+    plant = db.Column(db.String)
 
 class HumidityReading(MeteoBase):
     __tablename__ = "humidity_readings"
@@ -61,6 +62,7 @@ class HumidityReading(MeteoBase):
     id = db.Column(db.Integer, primary_key=True)
     value = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=dt.datetime.now)
+    plant = db.Column(db.String)
 
 class PressureReading(MeteoBase):
     __tablename__ = "pressure_readings"
@@ -68,3 +70,4 @@ class PressureReading(MeteoBase):
     id = db.Column(db.Integer, primary_key=True)
     value = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=dt.datetime.now)
+    plant = db.Column(db.String)

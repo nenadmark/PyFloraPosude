@@ -1,11 +1,17 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.models import InventoryBase, Plants, Pots
+import random
 
 engine_inventory = create_engine("sqlite:///inventory.db", echo=True)
 InventoryBase.metadata.create_all(engine_inventory, checkfirst=True) 
 Session = sessionmaker(bind=engine_inventory)
 session = Session()
+
+def get_plant_list():
+    p_codes = [plants.p_code for plants in session.query(Plants).all()]
+    random_p_code = random.choice(p_codes)
+    return random_p_code
 
 def get_data_plants():
     data_plants = session.query(Plants).all()
