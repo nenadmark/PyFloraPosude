@@ -17,9 +17,9 @@ class PlantsFrame:
     data_faker = DataFaker()
 
     def get_plant_status(self, plant, data_faker):
-        gen_temperature = data_faker.generate_plant_reading_temperature()
-        gen_humidity = data_faker.generate_plant_reading_humidity()
-        gen_salinity = data_faker.generate_plant_reading_salinity()
+        gen_temperature = data_faker.generate_plant_reading_temperature(self)
+        gen_humidity = data_faker.generate_plant_reading_humidity(self)
+        gen_salinity = data_faker.generate_plant_reading_salinity(self)
 
         if gen_humidity < plant.ref_humidity:
             return "Needs Watering"
