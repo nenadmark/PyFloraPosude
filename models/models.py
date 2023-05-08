@@ -36,7 +36,7 @@ class Plants(InventoryBase):
     ref_humidity = db.Column(db.Integer, nullable=False, default=50)
     ref_salinity = db.Column(db.Integer, nullable=False, default=1.8)
 
-    pot = relationship("Pots", back_populates="plants")
+    pot = relationship("Pots", back_populates="plant", uselist=False)
 
 class Pots(InventoryBase):
     __tablename__= "pots"  
@@ -46,7 +46,7 @@ class Pots(InventoryBase):
     radius = db.Column(db.Integer, nullable=False)
     image_path = db.Column(db.String, nullable=False)
 
-    plants = relationship("Plants", back_populates="pot")
+    plant = relationship("Plants", back_populates="pot", uselist=False)
 
 class TemperatureReading(MeteoBase):
     __tablename__ = "temperature_readings"
