@@ -10,7 +10,7 @@ INSERT INTO plants (id, name, sort, humidity, temperature, p_code, image_path, r
 
 INSERT INTO plants (id, name, sort, humidity, temperature, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("004", "McDowell", "Philodendron", 70, 25, "PT4", "assets\thumbs\plants\McDowell_1_130x130.png", 20, 50, 1.8);
 
-INSERT INTO plants (id, name, sort, humidity, temperature, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("0005", "Paraiso Verde", "Philodendron", 45, 20, "PT5", "assets\thumbs\plants\Paraiso_Verde_130x130.png", 20, 50, 1.8);
+INSERT INTO plants (id, name, sort, humidity, temperature, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("005", "Paraiso Verde", "Philodendron", 45, 20, "PT5", "assets\thumbs\plants\Paraiso_Verde_130x130.png", 20, 50, 1.8);
 
 INSERT INTO plants (id, name, sort, humidity, temperature, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("006", "White Wizard", "Philodendron", 65, 24, "PT6", "assets\thumbs\plants\White_Wizard_130x130.png", 20, 50, 1.8);
 

@@ -9,7 +9,7 @@ Session = sessionmaker(bind=engine_inventory)
 session = Session()
 
 def get_plant_list():
-    p_codes = [plants.p_code for plants in session.query(Plants).all()]
+    p_codes = [plants.id for plants in session.query(Plants).all()]
     random_p_code = random.choice(p_codes)
     return random_p_code
 
