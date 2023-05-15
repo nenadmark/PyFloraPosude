@@ -58,7 +58,7 @@ class PotsFrame:
         
             label_plant_inside = tk.Label(
                 self.pot_frame,
-                text=f'Plant inside: {pot.plant.id if pot.plant else "None"}',
+                text=f'Plant inside: {pot.id}',
                 font=self.font
             )
             label_plant_inside.grid(row=i, column=3, padx=5)

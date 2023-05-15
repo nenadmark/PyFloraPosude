@@ -34,7 +34,7 @@ class Plants(Base):
     ref_humidity = db.Column(db.Integer, nullable=False, default=50)
     ref_salinity = db.Column(db.Integer, nullable=False, default=1.8)
 
-    pot = relationship("Pots", back_populates="plant", uselist=False)
+    pot = relationship("Pots", back_populates="plant")
 
 class Pots(Base):
     __tablename__= "pots"  

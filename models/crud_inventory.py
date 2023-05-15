@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, joinedload
 from models.models import Base, Plants, Pots
 import random
 
@@ -18,8 +18,8 @@ def get_data_plants():
     return data_plants
 
 def get_data_pots():
-    data_plants = session.query(Pots).all()
-    return data_plants
+    data_pots = session.query(Pots).options(joinedload(Pots.plant)).all()
+    return data_pots
 
 def delete_plant(id):
     del_plant = session.query(Plants).get(id)
