@@ -26,15 +26,12 @@ class DataFaker:
         return round(rd.uniform(float(response_pressure) - 6, float(response_pressure) + 8), 1)
     
     def generate_plant_reading_temperature(self):
-        #(10-24°C)
         return round(rd.uniform(float(10), float(24)))
 
     def generate_plant_reading_humidity(self):
-        #Between 40 to 50% relative humidity
         return round(rd.uniform(float(20), float(50)))
 
     def generate_plant_reading_salinity(self):
-        #The optimal EC value for plant growth is usually between 0.8-1.8
         return round(rd.uniform(float(0.7), float(2.5)))
                                 
 class MeteoFrame:

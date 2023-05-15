@@ -5,11 +5,6 @@ from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
-"""
-UserBase = declarative_base()
-InventoryBase = declarative_base()
-MeteoBase = declarative_base()"""
-
 Base = declarative_base()
 
 class User(Base):
