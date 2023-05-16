@@ -22,7 +22,7 @@ class User(Base):
 class Plants(Base):
     __tablename__= "plants"
 
-    id = db.Column(db.String, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     sort = db.Column(db.String, nullable=False)
     humidity = db.Column(db.Integer, nullable=False)
@@ -39,7 +39,7 @@ class Plants(Base):
 class Pots(Base):
     __tablename__= "pots"  
 
-    id = db.Column(db.String, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     radius = db.Column(db.Integer, nullable=False)
     image_path = db.Column(db.String, nullable=False)
