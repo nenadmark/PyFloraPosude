@@ -10,11 +10,16 @@ class PotsFrame:
 
         self.create_pots_frame()
 
+    def clear_pots_frame(self):
+        for widget in self.frame.winfo_children():
+            widget.destroy()
+
     def on_delete(self, pot):
         delete_pot(pot.id)
+        self.create_pots_frame()
 
     def create_pots_frame(self):
-
+        self.clear_pots_frame()
         data_pots = get_data_pots()
 
         for i, pot in enumerate(data_pots):
@@ -97,6 +102,7 @@ class PotsFrame:
                 image_path=image_path_var.get(),
             )
             popup.destroy()
+            self.create_pots_frame()
 
         popup = Toplevel(self.pot_frame)
         popup.title("Edit Pot")

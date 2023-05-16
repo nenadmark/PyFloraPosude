@@ -10,9 +10,14 @@ class PlantsFrame:
         self.frame.config(bg="skyblue2")
 
         self.create_plants_frame()
+    
+    def clear_plants_frame(self):
+        for widget in self.frame.winfo_children():
+            widget.destroy()
 
     def on_delete(self, plant):
             delete_plant(plant.id)
+            self.create_plants_frame()
 
     data_faker = DataFaker()
 
@@ -31,7 +36,7 @@ class PlantsFrame:
             return "Healthy"
 
     def create_plants_frame(self):
-
+        self.clear_plants_frame()
         data_plants = get_data_plants()
 
         for i, plant in enumerate (data_plants):
@@ -116,6 +121,7 @@ class PlantsFrame:
                 image_path=image_path_var.get(),
             )
             popup.destroy()
+            self.create_plants_frame()
 
         popup = Toplevel(self.plant_frame)
         popup.title("Edit Plant")
