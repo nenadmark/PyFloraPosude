@@ -28,7 +28,7 @@ class Plants(Base):
     humidity = db.Column(db.Integer, nullable=False)
     temperature = Column(Integer, nullable=False)
     p_code = Column(String, ForeignKey('pots.id'))
-    image_path = db.Column(db.String)
+    image_path = db.Column(db.String, nullable=True)
 
     ref_temperature = db.Column(db.Integer, nullable=False, default=20)
     ref_humidity = db.Column(db.Integer, nullable=False, default=50)
@@ -42,7 +42,7 @@ class Pots(Base):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     radius = db.Column(db.Integer, nullable=False)
-    image_path = db.Column(db.String, nullable=False)
+    image_path = db.Column(db.String, nullable=True)
 
     plant = relationship("Plants", back_populates="pot", uselist=False)
 

@@ -8,6 +8,7 @@ from models.crud_meteo import create_temperature_reading, create_humidity_readin
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.crud_meteo import TemperatureReading, HumidityReading, PressureReading
+from models.models import Plants, Pots
 
 engine = create_engine('sqlite:///PyFloraDB.db')
 Session = sessionmaker(bind=engine)
@@ -44,6 +45,8 @@ class MeteoFrame:
 
         self.get_outdoor_data()
         self.create_sync_button()
+        self.create_add_plant_button()
+        self.create_add_pot_button()
         self.create_temperature_graph_button()
         self.create_humidity_graph_button()
         self.create_pressure_graph_button()
@@ -72,13 +75,118 @@ class MeteoFrame:
         self.sync_button.grid(row=0, column=0, pady=5, ipady=5)
         self.sync_button.config(bg="lightblue1")
 
+    def create_add_plant_button(self):
+        self.add_plant_button = tk.Button(
+            self.frame,
+            text="Add Plant",
+            command=self.create_add_plant_popup
+        )
+        self.add_plant_button.grid(row=1, column=0, pady=5, ipady=5)
+        self.add_plant_button.config(bg="lightblue1")
+
+    def create_add_pot_button(self):
+        self.add_pot_button = tk.Button(
+            self.frame,
+            text="Add Pot",
+            command=self.create_add_pot_popup
+        )
+        self.add_pot_button.grid(row=2, column=0, pady=5, ipady=5)
+        self.add_pot_button.config(bg="lightblue1")
+
+    def create_add_plant_popup(self):
+        def save_plant():
+            name = name_entry.get()
+            sort = sort_entry.get()
+            humidity = humidity_entry.get()
+            temperature = temperature_entry.get()
+            p_code = p_code_entry.get()
+            image_path = image_path_entry.get()
+
+            session.add(Plants(
+                name=name,
+                sort=sort,
+                humidity=humidity,
+                temperature=temperature,
+                p_code=p_code,
+                image_path=image_path
+            ))
+            session.commit()
+            popup.destroy()
+
+        popup = tk.Toplevel(self.frame)
+        popup.title("Add Plant")
+
+        tk.Label(popup, text="Name:").grid(row=0, column=0)
+        name_entry = tk.Entry(popup)
+        name_entry.grid(row=0, column=1)
+
+        tk.Label(popup, text="Sort:").grid(row=1, column=0)
+        sort_entry = tk.Entry(popup)
+        sort_entry.grid(row=1, column=1)
+
+        tk.Label(popup, text="Humidity:").grid(row=2, column=0)
+        humidity_entry = tk.Entry(popup)
+        humidity_entry.grid(row=2, column=1)
+
+        tk.Label(popup, text="Temperature:").grid(row=3, column=0)
+        temperature_entry = tk.Entry(popup)
+        temperature_entry.grid(row=3, column=1)
+
+        tk.Label(popup, text="P Code:").grid(row=4, column=0)
+        p_code_entry = tk.Entry(popup)
+        p_code_entry.grid(row=4, column=1)
+
+        tk.Label(popup, text="Image Path:").grid(row=5, column=0)
+        image_path_entry = tk.Entry(popup)
+        image_path_entry.grid(row=5, column=1)
+
+        save_button = tk.Button(popup, text="Save", command=save_plant)
+        save_button.grid(row=6, column=1, pady=5)
+
+        popup.mainloop()
+
+    def create_add_pot_popup(self):
+        def save_pot():
+            name = name_entry.get()
+            radius = radius_entry.get()
+            image_path = image_path_entry.get()
+
+            session.add(Pots(
+                name=name,
+                radius=radius,
+                image_path=image_path
+            ))
+            session.commit()
+            popup.destroy()
+
+        popup = tk.Toplevel(self.frame)
+        popup.title("Add Pot")
+
+        tk.Label(popup, text="Name:").grid(row=0, column=0)
+        name_entry = tk.Entry(popup)
+        name_entry.grid(row=0, column=1)
+
+        tk.Label(popup, text="Radius:").grid(row=1, column=0)
+        radius_entry = tk.Entry(popup)
+        radius_entry.grid(row=1, column=1)
+
+        tk.Label(popup, text="Image Path:").grid(row=2, column=0)
+        image_path_entry = tk.Entry(popup)
+        image_path_entry.grid(row=2, column=1)
+
+        save_button = tk.Button(popup, text="Save", command=save_pot)
+        save_button.grid(row=3, column=1, pady=5)
+
+        popup.mainloop()
+
+
     def create_temperature_graph_button(self):
         self.temp_graph_button = tk.Button(
                 self.frame,
                 text="Inside temperature graph",
                 command=lambda: self.create_temperature_graph_window()
             )
-        self.temp_graph_button.grid(row=1, column=0, pady=5, ipady=5)
+        self.temp_graph_button.grid(row=3, column=0, pady=5, ipady=5)
         self.temp_graph_button.config(bg="lightblue1")
 
     def create_temperature_graph_window(self):
@@ -98,7 +206,7 @@ class MeteoFrame:
                 text="Inside humidity graph",
                 command=lambda: self.create_humidity_graph_window()
             )
-        self.humid_graph_button.grid(row=2, column=0, pady=5, ipady=5)
+        self.humid_graph_button.grid(row=4, column=0, pady=5, ipady=5)
         self.humid_graph_button.config(bg="lightblue1")
 
     def create_humidity_graph_window(self):
@@ -118,7 +226,7 @@ class MeteoFrame:
                 text="Inside pressure graph",
                 command=lambda: self.create_pressure_graph_window()
             )
-        self.press_graph_button.grid(row=3, column=0, pady=5, ipady=5)
+        self.press_graph_button.grid(row=5, column=0, pady=5, ipady=5)
         self.press_graph_button.config(bg="lightblue1")
 
     def create_pressure_graph_window(self):
@@ -140,7 +248,7 @@ class MeteoFrame:
             font=self.font_header,
             bd=6
         )
-        self.indoor_frame.grid(row=4, column=0, ipadx=20, ipady=20, padx=70, pady=30)
+        self.indoor_frame.grid(row=6, column=0, ipadx=20, ipady=20, padx=70, pady=30)
         self.indoor_frame.config(bg="burlywood1")
 
         def refresh_values():
@@ -159,7 +267,7 @@ class MeteoFrame:
             font=self.font_header,
             bd=6
         )
-        self.outdoor_frame.grid(row=5, column=0, ipadx=20, ipady=20, padx=70, pady=30)
+        self.outdoor_frame.grid(row=7, column=0, ipadx=20, ipady=20, padx=70, pady=30)
         self.outdoor_frame.config(bg="burlywood1")
 
         self.create_outside_readings()
@@ -173,7 +281,7 @@ class MeteoFrame:
             font=self.font_header,
             bd=6
         )
-        self.wind_info_frame.grid(row=6, column=0, ipadx=20, ipady=20, padx=70, pady=30)
+        self.wind_info_frame.grid(row=8, column=0, ipadx=20, ipady=20, padx=70, pady=30)
         self.wind_info_frame.config(bg="burlywood1")
 
         self.create_wind_info_readings()

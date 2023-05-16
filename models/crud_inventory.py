@@ -33,6 +33,27 @@ def delete_pot(id):
         session.delete(del_pot)
         session.commit()
 
+def create_plant(name, sort, humidity, temperature, p_code, image_path):
+    new_plant = Plants(
+        name=name,
+        sort=sort,
+        humidity=humidity,
+        temperature=temperature,
+        p_code=p_code,
+        image_path=image_path
+    )
+    session.add(new_plant)
+    session.commit()
+
+def create_pot(name, radius, image_path):
+    new_pot = Pots(
+        name=name,
+        radius=radius,
+        image_path=image_path
+    )
+    session.add(new_pot)
+    session.commit()
+
 def update_plant(id, name=None, sort=None, humidity=None, temperature=None, p_code=None, image_path=None):
     plant = session.query(Plants).get(id)
     if plant:
