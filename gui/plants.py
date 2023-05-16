@@ -19,16 +19,16 @@ class PlantsFrame:
             delete_plant(plant.id)
             self.create_plants_frame()
 
-    data_faker = DataFaker()
+    #data_faker = DataFaker()
 
     def get_plant_status(self, plant, data_faker):
-        gen_temperature = data_faker.generate_plant_reading_temperature(self)
-        gen_humidity = data_faker.generate_plant_reading_humidity(self)
-        gen_salinity = data_faker.generate_plant_reading_salinity(self)
+        gen_temperature = data_faker.generate_plant_reading_temperature()
+        gen_humidity = data_faker.generate_plant_reading_humidity()
+        gen_salinity = data_faker.generate_plant_reading_salinity()
 
         if gen_humidity < plant.ref_humidity:
             return "Needs Watering"
-        elif gen_temperature < plant.   ref_temperature:
+        elif gen_temperature < plant.ref_temperature:
             return "Needs More Temperature"
         elif gen_salinity < plant.ref_salinity:
             return "Needs More Salinity"
@@ -40,7 +40,9 @@ class PlantsFrame:
         data_plants = get_data_plants()
 
         for i, plant in enumerate (data_plants):
-            plant_status = self.get_plant_status(plant, DataFaker)
+
+            data_faker = DataFaker()
+            plant_status = self.get_plant_status(plant, data_faker)
 
             self.plant_frame = tk.LabelFrame(
                 self.frame,
@@ -108,6 +110,14 @@ class PlantsFrame:
             )
             edit_button.grid(row=i+1, column=2, pady=1, ipady=1)
             edit_button.config(bg="lightblue1")
+
+            sync_button = tk.Button(
+                self.plant_frame,
+                text="Sync",
+                command=lambda current_plant=plant, df=data_faker: self.get_plant_status(current_plant, df) 
+            )
+            sync_button.grid(row=i+1, column=3, pady=1, ipady=1)
+            sync_button.config(bg="lightblue1")
 
     def open_edit_plant_popup(self, plant):
         def save_changes(plant):
