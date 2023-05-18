@@ -22,9 +22,9 @@ class PlantsFrame:
     #data_faker = DataFaker()
     # ova metoda uzima referentne vrijednosti i one izgenerirane te ih usporedjuje, referentne su u plants tablici
     def get_plant_status(self, plant, data_faker):
-        gen_temperature = data_faker.generate_plant_reading_temperature()
-        gen_humidity = data_faker.generate_plant_reading_humidity()
-        gen_salinity = data_faker.generate_plant_reading_salinity()
+        gen_temperature = data_faker.generate_pot_reading_temperature()
+        gen_humidity = data_faker.generate_pot_reading_humidity()
+        gen_salinity = data_faker.generate_pot_reading_salinity()
 
         if gen_humidity < plant.ref_humidity:
             return "Needs Watering"
