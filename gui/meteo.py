@@ -101,7 +101,8 @@ class MeteoFrame:
             humidity = humidity_entry.get()
             temperature = temperature_entry.get()
             p_code = p_code_entry.get()
-            image_path = image_path_entry.get()
+            image_path = image_path_var.get()
+
 
             session.add(Plant(
                 name=name,
@@ -113,6 +114,10 @@ class MeteoFrame:
             ))
             session.commit()
             popup.destroy()
+
+        def open_file_dialog():
+            filepath = filedialog.askopenfilename()
+            image_path_var.set(filepath)
 
         popup = tk.Toplevel(self.frame)
         popup.title("Add Plant")
@@ -137,9 +142,15 @@ class MeteoFrame:
         p_code_entry = tk.Entry(popup)
         p_code_entry.grid(row=4, column=1)
 
+        image_path_var = tk.StringVar()
+
         tk.Label(popup, text="Image Path:").grid(row=5, column=0)
-        image_path_entry = tk.Entry(popup)
-        image_path_entry.grid(row=5, column=1)
+        image_path_button = tk.Button(popup, text="Browse", command=open_file_dialog)
+        image_path_button.grid(row=5, column=1)
+
+        image_path_label = tk.Label(popup, textvariable=image_path_var)
+        image_path_label.grid(row=5, column=2)
+
 
         save_button = tk.Button(popup, text="Save", command=save_plant)
         save_button.grid(row=6, column=1, pady=5)
@@ -150,7 +161,7 @@ class MeteoFrame:
         def save_pot():
             name = name_entry.get()
             radius = radius_entry.get()
-            image_path = image_path_entry.get()
+            image_path = image_path_var.get()
 
             session.add(Pot(
                 name=name,
@@ -159,6 +170,10 @@ class MeteoFrame:
             ))
             session.commit()
             popup.destroy()
+
+        def open_file_dialog():
+            filepath = filedialog.askopenfilename()
+            image_path_var.set(filepath)
 
         popup = tk.Toplevel(self.frame)
         popup.title("Add Pot")
@@ -171,9 +186,14 @@ class MeteoFrame:
         radius_entry = tk.Entry(popup)
         radius_entry.grid(row=1, column=1)
 
+        image_path_var = tk.StringVar()
+
         tk.Label(popup, text="Image Path:").grid(row=2, column=0)
-        image_path_entry = tk.Entry(popup)
-        image_path_entry.grid(row=2, column=1)
+        image_path_button = tk.Button(popup, text="Browse", command=open_file_dialog)
+        image_path_button.grid(row=2, column=1)
+
+        image_path_label = tk.Label(popup, textvariable=image_path_var)
+        image_path_label.grid(row=2, column=2)
 
         save_button = tk.Button(popup, text="Save", command=save_pot)
         save_button.grid(row=3, column=1, pady=5)
