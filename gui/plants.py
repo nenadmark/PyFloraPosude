@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import Toplevel, Label, Entry, StringVar, Button
+from tkinter import Toplevel, Label, Entry, StringVar, Button, messagebox
 from models.crud_inventory import get_data_plants, delete_plant, update_plant
 from gui.meteo import DataFaker
 
@@ -43,6 +43,10 @@ class PlantsFrame:
 
             data_faker = DataFaker()
             plant_status = self.get_plant_status(plant, data_faker)
+
+            def sync_and_show_message(current_plant=plant, df=data_faker):
+                self.get_plant_status(current_plant, df)
+                messagebox.showinfo("Success", "Plant data synced!")
 
             self.plant_frame = tk.LabelFrame(
                 self.frame,
@@ -114,7 +118,7 @@ class PlantsFrame:
             sync_button = tk.Button(
                 self.plant_frame,
                 text="Sync",
-                command=lambda current_plant=plant, df=data_faker: self.get_plant_status(current_plant, df) 
+                command=sync_and_show_message
             )
             sync_button.grid(row=i+1, column=3, pady=1, ipady=1)
             sync_button.config(bg="lightblue1")
