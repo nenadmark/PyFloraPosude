@@ -20,7 +20,7 @@ class PlantsFrame:
             self.create_plants_frame()
 
     #data_faker = DataFaker()
-
+    # ova metoda uzima referentne vrijednosti i one izgenerirane te ih usporedjuje, referentne su u plants tablici
     def get_plant_status(self, plant, data_faker):
         gen_temperature = data_faker.generate_plant_reading_temperature()
         gen_humidity = data_faker.generate_plant_reading_humidity()
