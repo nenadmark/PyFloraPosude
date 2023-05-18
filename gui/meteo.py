@@ -8,7 +8,7 @@ from models.crud_meteo import create_temperature_reading, create_humidity_readin
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models.crud_meteo import TemperatureReading, HumidityReading, PressureReading
-from models.models import Plants, Pots
+from models.models import Plant, Pot
 
 engine = create_engine('sqlite:///PyFloraDB.db')
 Session = sessionmaker(bind=engine)
@@ -102,7 +102,7 @@ class MeteoFrame:
             p_code = p_code_entry.get()
             image_path = image_path_entry.get()
 
-            session.add(Plants(
+            session.add(Plant(
                 name=name,
                 sort=sort,
                 humidity=humidity,
@@ -151,7 +151,7 @@ class MeteoFrame:
             radius = radius_entry.get()
             image_path = image_path_entry.get()
 
-            session.add(Pots(
+            session.add(Pot(
                 name=name,
                 radius=radius,
                 image_path=image_path

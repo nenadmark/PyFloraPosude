@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, joinedload
-from models.models import Base, Plants, Pots
+from models.models import Base, Plant, Pot
 import random
 
 engine_inventory = create_engine("sqlite:///PyFloraDB.db", echo=True)
@@ -9,32 +9,32 @@ Session = sessionmaker(bind=engine_inventory)
 session = Session()
 
 def get_plant_list():
-    p_codes = [plants.id for plants in session.query(Plants).all()]
+    p_codes = [plants.id for plants in session.query(Plant).all()]
     random_p_code = random.choice(p_codes)
     return random_p_code
 
 def get_data_plants():
-    data_plants = session.query(Plants).all()
+    data_plants = session.query(Plant).all()
     return data_plants
 
 def get_data_pots():
-    data_pots = session.query(Pots).options(joinedload(Pots.plant)).all()
+    data_pots = session.query(Pot).options(joinedload(Pot.plant)).all()
     return data_pots
 
 def delete_plant(id):
-    del_plant = session.query(Plants).get(id)
+    del_plant = session.query(Plant).get(id)
     if del_plant:
         session.delete(del_plant)
         session.commit()
 
 def delete_pot(id):
-    del_pot = session.query(Pots).get(id)
+    del_pot = session.query(Pot).get(id)
     if del_pot:
         session.delete(del_pot)
         session.commit()
 
 def create_plant(name, sort, humidity, temperature, p_code, image_path):
-    new_plant = Plants(
+    new_plant = Plant(
         name=name,
         sort=sort,
         humidity=humidity,
@@ -46,7 +46,7 @@ def create_plant(name, sort, humidity, temperature, p_code, image_path):
     session.commit()
 
 def create_pot(name, radius, image_path):
-    new_pot = Pots(
+    new_pot = Pot(
         name=name,
         radius=radius,
         image_path=image_path
@@ -55,7 +55,7 @@ def create_pot(name, radius, image_path):
     session.commit()
 
 def update_plant(id, name=None, sort=None, humidity=None, temperature=None, p_code=None, image_path=None):
-    plant = session.query(Plants).get(id)
+    plant = session.query(Plant).get(id)
     if plant:
         if name is not None:
             plant.name = name
@@ -72,7 +72,7 @@ def update_plant(id, name=None, sort=None, humidity=None, temperature=None, p_co
         session.commit()
 
 def update_pot(id, name=None, radius=None, image_path=None):
-    pot = session.query(Pots).get(id)
+    pot = session.query(Pot).get(id)
     if pot:
         if name is not None:
             pot.name = name

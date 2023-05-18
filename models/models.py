@@ -19,7 +19,7 @@ class User(Base):
     def __repr__(self) -> str:
         return self.name
 
-class Plants(Base):
+class Plant(Base):
     __tablename__= "plants"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -34,9 +34,9 @@ class Plants(Base):
     ref_humidity = db.Column(db.Integer, nullable=False, default=50)
     ref_salinity = db.Column(db.Integer, nullable=False, default=1.8)
 
-    pot = relationship("Pots", back_populates="plant")
+    pot = relationship("Pot", back_populates="plant")
 
-class Pots(Base):
+class Pot(Base):
     __tablename__= "pots"  
 
     id = db.Column(db.Integer, primary_key=True)
@@ -44,7 +44,7 @@ class Pots(Base):
     radius = db.Column(db.Integer, nullable=False)
     image_path = db.Column(db.String, nullable=True)
 
-    plant = relationship("Plants", back_populates="pot", uselist=False)
+    plant = relationship("Plant", back_populates="pot", uselist=False)
 
 class TemperatureReading(Base):
     __tablename__ = "temperature_readings"

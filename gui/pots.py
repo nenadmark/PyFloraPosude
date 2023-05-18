@@ -85,14 +85,6 @@ class PotsFrame:
             edit_button.grid(row=i+1, column=2, pady=1, ipady=1)
             edit_button.config(bg="lightgreen")
     
-
-
-
-
-
-
-
-    
     def open_edit_pot_popup(self, pot):
         def save_changes(pot):
             update_pot(
