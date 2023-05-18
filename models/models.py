@@ -18,15 +18,15 @@ class User(Base):
 
     def __repr__(self) -> str:
         return self.name
-
+###########################################################
 class Plant(Base):
     __tablename__= "plants"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     sort = db.Column(db.String, nullable=False)
-    humidity = db.Column(db.Integer, nullable=False)
-    temperature = Column(Integer, nullable=False)
+    #humidity = db.Column(db.Integer, nullable=False)
+    #temperature = Column(Integer, nullable=False)
     p_code = Column(String, ForeignKey('pots.id'))
     image_path = db.Column(db.String, nullable=True)
 
@@ -44,15 +44,18 @@ class Pot(Base):
     radius = db.Column(db.Integer, nullable=False)
     image_path = db.Column(db.String, nullable=True)
 
-    plant = relationship("Plant", back_populates="pot", uselist=False)
 
+    plant = relationship("Plant", back_populates="pot", uselist=False)
+    humidity = db.Column(db.Integer, nullable=False)
+    temperature = Column(Integer, nullable=False)
+###########################################################
 class TemperatureReading(Base):
     __tablename__ = "temperature_readings"
 
     id = db.Column(db.Integer, primary_key=True)
     value = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=dt.datetime.now)
-    plant = db.Column(db.String)
+    pot = db.Column(db.String)
 
 class HumidityReading(Base):
     __tablename__ = "humidity_readings"
@@ -60,7 +63,7 @@ class HumidityReading(Base):
     id = db.Column(db.Integer, primary_key=True)
     value = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=dt.datetime.now)
-    plant = db.Column(db.String)
+    pot = db.Column(db.String)
 
 class PressureReading(Base):
     __tablename__ = "pressure_readings"
@@ -68,4 +71,4 @@ class PressureReading(Base):
     id = db.Column(db.Integer, primary_key=True)
     value = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=dt.datetime.now)
-    plant = db.Column(db.String)
+    pot = db.Column(db.String)

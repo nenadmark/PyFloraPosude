@@ -4,6 +4,7 @@ import tkinter as tk
 import random as rd
 import matplotlib.pyplot as plt
 import pandas as pd
+from tkinter import filedialog
 from models.crud_meteo import create_temperature_reading, create_humidity_reading, create_pressure_reading
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
