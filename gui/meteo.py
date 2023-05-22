@@ -98,8 +98,9 @@ class MeteoFrame:
         def save_plant():
             name = name_entry.get()
             sort = sort_entry.get()
-            humidity = humidity_entry.get()
-            temperature = temperature_entry.get()
+            ref_temperature = ref_temperature_entry.get()
+            ref_humidity = ref_humidity_entry.get()
+            ref_salinity = ref_salinity_entry.get()
             p_code = p_code_entry.get()
             image_path = image_path_var.get()
 
@@ -107,8 +108,9 @@ class MeteoFrame:
             session.add(Plant(
                 name=name,
                 sort=sort,
-                humidity=humidity,
-                temperature=temperature,
+                ref_temperature=ref_temperature,
+                ref_humidity=ref_humidity,
+                ref_salinity=ref_salinity,
                 p_code=p_code,
                 image_path=image_path
             ))
@@ -130,30 +132,34 @@ class MeteoFrame:
         sort_entry = tk.Entry(popup)
         sort_entry.grid(row=1, column=1)
 
-        tk.Label(popup, text="Humidity:").grid(row=2, column=0)
-        humidity_entry = tk.Entry(popup)
-        humidity_entry.grid(row=2, column=1)
+        tk.Label(popup, text="Referent temp:").grid(row=2, column=0)
+        ref_temperature_entry = tk.Entry(popup)
+        ref_temperature_entry.grid(row=2, column=1)
 
-        tk.Label(popup, text="Temperature:").grid(row=3, column=0)
-        temperature_entry = tk.Entry(popup)
-        temperature_entry.grid(row=3, column=1)
+        tk.Label(popup, text="Referent humidity:").grid(row=3, column=0)
+        ref_humidity_entry = tk.Entry(popup)
+        ref_humidity_entry.grid(row=3, column=1)
 
-        tk.Label(popup, text="P Code:").grid(row=4, column=0)
+        tk.Label(popup, text="Referent salinity:").grid(row=4, column=0)
+        ref_salinity_entry = tk.Entry(popup)
+        ref_salinity_entry.grid(row=4, column=1)
+
+        tk.Label(popup, text="P Code:").grid(row=5, column=0)
         p_code_entry = tk.Entry(popup)
-        p_code_entry.grid(row=4, column=1)
+        p_code_entry.grid(row=5, column=1)
 
         image_path_var = tk.StringVar()
 
-        tk.Label(popup, text="Image Path:").grid(row=5, column=0)
+        tk.Label(popup, text="Image Path:").grid(row=6, column=0)
         image_path_button = tk.Button(popup, text="Browse", command=open_file_dialog)
-        image_path_button.grid(row=5, column=1)
+        image_path_button.grid(row=6, column=1)
 
         image_path_label = tk.Label(popup, textvariable=image_path_var)
-        image_path_label.grid(row=5, column=2)
+        image_path_label.grid(row=7, column=2)
 
 
         save_button = tk.Button(popup, text="Save", command=save_plant)
-        save_button.grid(row=6, column=1, pady=5)
+        save_button.grid(row=8, column=1, pady=5)
 
         popup.mainloop()
 
@@ -162,11 +168,15 @@ class MeteoFrame:
             name = name_entry.get()
             radius = radius_entry.get()
             image_path = image_path_var.get()
+            humidity = humidity_entry.get()
+            temperature = temperature_entry.get()
 
             session.add(Pot(
                 name=name,
                 radius=radius,
-                image_path=image_path
+                image_path=image_path, 
+                humidity=humidity,
+                temperature=temperature
             ))
             session.commit()
             popup.destroy()
@@ -186,17 +196,25 @@ class MeteoFrame:
         radius_entry = tk.Entry(popup)
         radius_entry.grid(row=1, column=1)
 
+        tk.Label(popup, text="Humidity:").grid(row=2, column=0)
+        humidity_entry = tk.Entry(popup)
+        humidity_entry.grid(row=2, column=1)
+
+        tk.Label(popup, text="Temperature:").grid(row=3, column=0)
+        temperature_entry = tk.Entry(popup)
+        temperature_entry.grid(row=3, column=1)
+
         image_path_var = tk.StringVar()
 
-        tk.Label(popup, text="Image Path:").grid(row=2, column=0)
+        tk.Label(popup, text="Image Path:").grid(row=4, column=0)
         image_path_button = tk.Button(popup, text="Browse", command=open_file_dialog)
-        image_path_button.grid(row=2, column=1)
+        image_path_button.grid(row=4, column=1)
 
         image_path_label = tk.Label(popup, textvariable=image_path_var)
-        image_path_label.grid(row=2, column=2)
+        image_path_label.grid(row=4, column=2)
 
         save_button = tk.Button(popup, text="Save", command=save_pot)
-        save_button.grid(row=3, column=1, pady=5)
+        save_button.grid(row=5, column=1, pady=5)
 
         popup.mainloop()
 
