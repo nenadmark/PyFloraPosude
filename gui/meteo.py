@@ -96,6 +96,7 @@ class MeteoFrame:
 
     def create_add_plant_popup(self):
         def save_plant():
+            #from gui.plants import PlantsFrame
             name = name_entry.get()
             sort = sort_entry.get()
             ref_temperature = ref_temperature_entry.get()

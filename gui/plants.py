@@ -134,8 +134,9 @@ class PlantsFrame:
                 plant.id,
                 name=name_var.get(),
                 sort=sort_var.get(),
-                humidity=int(humidity_var.get()),
-                temperature=int(temperature_var.get ()),
+                ref_temperature=int(ref_temperature.get()),
+                ref_humidity=int(ref_humidity.get()),
+                ref_salinity=float(ref_salinity.get()),
                 p_code=p_code_var.get(),
                 image_path=image_path_var.get(),
             )
@@ -147,8 +148,9 @@ class PlantsFrame:
 
         name_var = StringVar(value=plant.name)
         sort_var = StringVar(value=plant.sort)
-        humidity_var = StringVar(value=plant.humidity)
-        temperature_var = StringVar(value=plant.temperature)
+        ref_temperature = StringVar(value=plant.ref_temperature)
+        ref_humidity = StringVar(value=plant.ref_humidity)
+        ref_salinity = StringVar(value=plant.ref_salinity)
         p_code_var = StringVar(value=plant.p_code)
         image_path_var = StringVar(value=plant. image_path)
 
@@ -158,20 +160,23 @@ class PlantsFrame:
         Label(popup, text="Sort:").grid(row=1,  column=0)
         Entry(popup, textvariable=sort_var).grid    (row=1, column=1)
 
-        Label(popup, text="Humidity:").grid(row=2,  column=0)
-        Entry(popup, textvariable=humidity_var).grid    (row=2, column=1)
+        Label(popup, text="Ref temp:").grid(row=2,  column=0)
+        Entry(popup, textvariable=ref_temperature).grid    (row=2, column=1)
 
-        Label(popup, text="Temperature:").grid(row=3,   column=0)
-        Entry(popup, textvariable=temperature_var). grid(row=3, column=1)
+        Label(popup, text="Ref humidity:").grid(row=3,   column=0)
+        Entry(popup, textvariable=ref_humidity). grid(row=3, column=1)
 
-        Label(popup, text="Pot:").grid(row=4,    column=0)
-        Entry(popup, textvariable=p_code_var).grid  (row=4, column=1)
+        Label(popup, text="Ref salinity:").grid(row=4,   column=0)
+        Entry(popup, textvariable=ref_salinity). grid(row=4, column=1)
 
-        Label(popup, text="Image Path:").grid(row=5,    column=0)
-        Entry(popup, textvariable=image_path_var).grid  (row=5, column=1)
+        Label(popup, text="Pot:").grid(row=5,    column=0)
+        Entry(popup, textvariable=p_code_var).grid  (row=5, column=1)
+
+        Label(popup, text="Image Path:").grid(row=6,    column=0)
+        Entry(popup, textvariable=image_path_var).grid  (row=6, column=1)
 
         save_button = Button(popup, text="Save  Changes", command=lambda: save_changes(plant))
-        save_button.grid(row=6, column=1, pady=5)
+        save_button.grid(row=7, column=1, pady=5)
 
         popup.mainloop()
             

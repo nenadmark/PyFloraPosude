@@ -32,7 +32,7 @@ class Plant(Base):
 
     ref_temperature = db.Column(db.Integer, nullable=False, default=20)
     ref_humidity = db.Column(db.Integer, nullable=False, default=50)
-    ref_salinity = db.Column(db.Integer, nullable=False, default=1.8)
+    ref_salinity = db.Column(db.Float, nullable=False, default=1.8)
 
     pot = relationship("Pot", back_populates="plant")
 
@@ -44,10 +44,10 @@ class Pot(Base):
     radius = db.Column(db.Integer, nullable=False)
     image_path = db.Column(db.String, nullable=True)
 
-
+    
     plant = relationship("Plant", back_populates="pot", uselist=False)
     humidity = db.Column(db.Integer, nullable=False)
-    temperature = Column(Integer, nullable=False)
+    temperature = db.Column(db.Integer, nullable=False)
 ###########################################################
 class TemperatureReading(Base):
     __tablename__ = "temperature_readings"

@@ -54,32 +54,39 @@ def create_pot(name, radius, image_path):
     session.add(new_pot)
     session.commit()
 
-def update_plant(id, name=None, sort=None, humidity=None, temperature=None, p_code=None, image_path=None):
+def update_plant(id, name=None, sort=None, ref_temperature=None, ref_humidity=None, ref_salinity=None, p_code=None, image_path=None):
     plant = session.query(Plant).get(id)
     if plant:
         if name is not None:
             plant.name = name
         if sort is not None:
             plant.sort = sort
-        if humidity is not None:
-            plant.humidity = humidity
-        if temperature is not None:
-            plant.temperature = temperature
+        if ref_temperature is not None:
+            plant.ref_temperature = ref_temperature
+        if ref_humidity is not None:
+            plant.ref_humidity = ref_humidity
+        if ref_salinity is not None:
+            plant.ref_salinity = ref_salinity
         if p_code is not None:
             plant.p_code = p_code
         if image_path is not None:
             plant.image_path = image_path
         session.commit()
 
-def update_pot(id, name=None, radius=None, image_path=None):
+def update_pot(id, name=None, radius=None, humidity=None, temperature=None, image_path=None):
     pot = session.query(Pot).get(id)
     if pot:
         if name is not None:
             pot.name = name
         if radius is not None:
             pot.radius = radius
+        if humidity is not None:
+            pot.humidity = humidity
+        if temperature is not None:
+            pot.temperature = temperature
         if image_path is not None:
             pot.image_path = image_path
+
         session.commit()
 
 def get_temperature_readings(pot_id):

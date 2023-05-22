@@ -128,6 +128,8 @@ class PotsFrame:
                 pot.id,
                 name=name_var.get(),
                 radius=int(radius_var.get()),
+                humidity=int(humidity_var.get()),
+                temperature=int(temperature_var.get()),
                 image_path=image_path_var.get(),
             )
             popup.destroy()
@@ -138,6 +140,9 @@ class PotsFrame:
 
         name_var = StringVar(value=pot.name)
         radius_var = StringVar(value=pot.radius)
+        humidity_var = StringVar(value=pot.humidity)
+        temperature_var = StringVar(value=pot.temperature)
+
         image_path_var = StringVar(value=pot.image_path)
 
         Label(popup, text="Name:").grid(row=0, column=0)
@@ -146,10 +151,27 @@ class PotsFrame:
         Label(popup, text="Radius:").grid(row=1, column=0)
         Entry(popup, textvariable=radius_var).grid(row=1, column=1)
 
-        Label(popup, text="Image Path:").grid(row=2, column=0)
-        Entry(popup, textvariable=image_path_var).grid(row=2, column=1)
+        Label(popup, text="Humidity:").grid(row=2, column=0)
+        Entry(popup, textvariable=humidity_var).grid(row=2, column=1)
+
+        Label(popup, text="Temperature:").grid(row=3, column=0)
+        Entry(popup, textvariable=temperature_var).grid(row=3, column=1)
+
+        Label(popup, text="Image Path:").grid(row=4, column=0)
+        Entry(popup, textvariable=image_path_var).grid(row=4, column=1)
 
         save_button = Button(popup, text="Save Changes", command=lambda: save_changes(pot))
-        save_button.grid(row=3, column=1, pady=5)
+        save_button.grid(row=5, column=1, pady=5)
 
         popup.mainloop()
+
+
+        """
+                    session.add(Pot(
+                name=name,
+                radius=radius,
+                image_path=image_path, 
+                humidity=humidity,
+                temperature=temperature
+            ))
+        """
