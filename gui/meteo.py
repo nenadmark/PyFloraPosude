@@ -105,7 +105,6 @@ class MeteoFrame:
             p_code = p_code_entry.get()
             image_path = image_path_var.get()
 
-
             session.add(Plant(
                 name=name,
                 sort=sort,
@@ -157,7 +156,6 @@ class MeteoFrame:
 
         image_path_label = tk.Label(popup, textvariable=image_path_var)
         image_path_label.grid(row=7, column=2)
-
 
         save_button = tk.Button(popup, text="Save", command=save_plant)
         save_button.grid(row=8, column=1, pady=5)
@@ -218,7 +216,6 @@ class MeteoFrame:
         save_button.grid(row=5, column=1, pady=5)
 
         popup.mainloop()
-
 
     def create_temperature_graph_button(self):
         self.temp_graph_button = tk.Button(
@@ -376,7 +373,6 @@ class MeteoFrame:
         responses_temp = responses[0]
         responses_humidity = responses[1]
         responses_pressure = responses[2]
-
 
         self.outside_temp_label = tk.Label(
             self.outdoor_frame,

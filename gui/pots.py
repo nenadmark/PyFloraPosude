@@ -1,8 +1,7 @@
 import tkinter as tk
+import matplotlib.pyplot as plt
 from tkinter import Toplevel, Label, Entry, StringVar, Button
 from models.crud_inventory import get_data_pots , delete_pot, update_pot, get_temperature_readings, get_humidity_readings
-
-import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 class PotsFrame:
@@ -25,14 +24,14 @@ class PotsFrame:
         temperature_readings = get_temperature_readings(pot.id)
         humidity_readings = get_humidity_readings(pot.id)
 
-        temperature_values = [reading.value for reading in  temperature_readings]
-        temperature_times = [reading.timestamp for reading in   temperature_readings]
+        temperature_values = [reading.value for reading in temperature_readings]
+        temperature_times = [reading.timestamp for reading in temperature_readings]
 
         humidity_values = [reading.value for reading in humidity_readings]
         humidity_times = [reading.timestamp for reading in humidity_readings]
 
         popup = Toplevel(self.pot_frame)
-        popup.title("Pot Graphs")
+        popup.title(f"Pot #{pot.id} Graphs")
 
         figure, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
 
@@ -164,14 +163,3 @@ class PotsFrame:
         save_button.grid(row=5, column=1, pady=5)
 
         popup.mainloop()
-
-
-        """
-                    session.add(Pot(
-                name=name,
-                radius=radius,
-                image_path=image_path, 
-                humidity=humidity,
-                temperature=temperature
-            ))
-        """

@@ -19,8 +19,6 @@ class PlantsFrame:
             delete_plant(plant.id)
             self.create_plants_frame()
 
-    #data_faker = DataFaker()
-    # ova metoda uzima referentne vrijednosti i one izgenerirane te ih usporedjuje, referentne su u plants tablici
     def get_plant_status(self, plant, data_faker):
         gen_temperature = data_faker.generate_pot_reading_temperature()
         gen_humidity = data_faker.generate_pot_reading_humidity()
@@ -40,18 +38,14 @@ class PlantsFrame:
         data_plants = get_data_plants()
         data_pots = get_data_pots()
 
-        #for i, pot in enumerate(data_pots):
-            #print(pot.humidity)
-
-
         for i, plant in enumerate (data_plants):
             for j, pot in enumerate(data_pots):
                 data_faker = DataFaker()
-                plant_status = self.get_plant_status(plant,     data_faker)
+                plant_status = self.get_plant_status(plant, data_faker)
 
-                def sync_and_show_message   (current_plant=plant, df=data_faker):
+                def sync_and_show_message(current_plant=plant, df=data_faker):
                     self.get_plant_status(current_plant, df)
-                    messagebox.showinfo("Success", "Plant   data synced!")
+                    messagebox.showinfo("Success", f"Plant {current_plant.id} data synced!")
 
                 self.plant_frame = tk.LabelFrame(
                     self.frame,
@@ -61,7 +55,7 @@ class PlantsFrame:
                     font=self.font,
                     bd=4
                 )
-                self.plant_frame.grid(row=i, column=0,  padx=5, pady=1, ipadx=60, ipady=1, sticky="w")
+                self.plant_frame.grid(row=i, column=0, padx=5, pady=1, ipadx=60, ipady=1, sticky="w")
                 self.plant_frame.config(bg="skyblue2")
 
                 image = tk.PhotoImage(file=plant.image_path)
@@ -72,14 +66,14 @@ class PlantsFrame:
                     font=self.font
                 )
                 label_image.image = image
-                label_image.grid(row=i, column=0, padx=5,   pady=5)
+                label_image.grid(row=i, column=0, padx=5, pady=5)
 
                 label_name = tk.Label(
                     self.plant_frame,
                     text=plant.sort,
                     font=self.font
                 )
-                label_name.grid(row=i, column=1, padx=5,    ipadx=5)
+                label_name.grid(row=i, column=1, padx=5, ipadx=5)
                 label_name.config(bg="skyblue2")
 
                 label_humidity = tk.Label(
@@ -95,7 +89,7 @@ class PlantsFrame:
                     text=f'Temperature: {pot.temperature}',
                     font=self.font
                 )
-                label_temperature.grid(row=i, column=3,     padx=5)
+                label_temperature.grid(row=i, column=3, padx=5)
                 label_temperature.config(bg="skyblue2")
 
                 label_status = tk.Label(self.plant_frame,
@@ -109,7 +103,7 @@ class PlantsFrame:
                     text="Delete",
                     command=lambda: self.on_delete(plant)
                 )
-                delete_button.grid(row=i+1, column=1, pady=1,   ipady=1)
+                delete_button.grid(row=i+1, column=1, pady=1, ipady=1)
                 delete_button.config(bg="lightblue1")
 
                 edit_button = tk.Button(
@@ -117,7 +111,7 @@ class PlantsFrame:
                     text="Edit",
                     command=lambda current_plant=plant: self.   open_edit_plant_popup(current_plant)
                 )
-                edit_button.grid(row=i+1, column=2, pady=1,     ipady=1)
+                edit_button.grid(row=i+1, column=2, pady=1, ipady=1)
                 edit_button.config(bg="lightblue1")
 
                 sync_button = tk.Button(
@@ -125,7 +119,7 @@ class PlantsFrame:
                     text="Sync",
                     command=sync_and_show_message
                 )
-                sync_button.grid(row=i+1, column=3, pady=1,     ipady=1)
+                sync_button.grid(row=i+1, column=3, pady=1, ipady=1)
                 sync_button.config(bg="lightblue1")
 
     def open_edit_plant_popup(self, plant):
@@ -152,33 +146,30 @@ class PlantsFrame:
         ref_humidity = StringVar(value=plant.ref_humidity)
         ref_salinity = StringVar(value=plant.ref_salinity)
         p_code_var = StringVar(value=plant.p_code)
-        image_path_var = StringVar(value=plant. image_path)
+        image_path_var = StringVar(value=plant.image_path)
 
-        Label(popup, text="Name:").grid(row=0,  column=0)
-        Entry(popup, textvariable=name_var).grid    (row=0, column=1)
+        Label(popup, text="Name:").grid(row=0, column=0)
+        Entry(popup, textvariable=name_var).grid(row=0, column=1)
 
-        Label(popup, text="Sort:").grid(row=1,  column=0)
-        Entry(popup, textvariable=sort_var).grid    (row=1, column=1)
+        Label(popup, text="Sort:").grid(row=1, column=0)
+        Entry(popup, textvariable=sort_var).grid(row=1, column=1)
 
-        Label(popup, text="Ref temp:").grid(row=2,  column=0)
-        Entry(popup, textvariable=ref_temperature).grid    (row=2, column=1)
+        Label(popup, text="Ref temp:").grid(row=2, column=0)
+        Entry(popup, textvariable=ref_temperature).grid(row=2, column=1)
 
-        Label(popup, text="Ref humidity:").grid(row=3,   column=0)
-        Entry(popup, textvariable=ref_humidity). grid(row=3, column=1)
+        Label(popup, text="Ref humidity:").grid(row=3, column=0)
+        Entry(popup, textvariable=ref_humidity).grid(row=3, column=1)
 
-        Label(popup, text="Ref salinity:").grid(row=4,   column=0)
-        Entry(popup, textvariable=ref_salinity). grid(row=4, column=1)
+        Label(popup, text="Ref salinity:").grid(row=4, column=0)
+        Entry(popup, textvariable=ref_salinity).grid(row=4, column=1)
 
-        Label(popup, text="Pot:").grid(row=5,    column=0)
-        Entry(popup, textvariable=p_code_var).grid  (row=5, column=1)
+        Label(popup, text="Pot:").grid(row=5, column=0)
+        Entry(popup, textvariable=p_code_var).grid(row=5, column=1)
 
-        Label(popup, text="Image Path:").grid(row=6,    column=0)
-        Entry(popup, textvariable=image_path_var).grid  (row=6, column=1)
+        Label(popup, text="Image Path:").grid(row=6, column=0)
+        Entry(popup, textvariable=image_path_var).grid(row=6, column=1)
 
-        save_button = Button(popup, text="Save  Changes", command=lambda: save_changes(plant))
+        save_button = Button(popup, text="Save Changes", command=lambda: save_changes(plant))
         save_button.grid(row=7, column=1, pady=5)
 
         popup.mainloop()
-            
-            
-
