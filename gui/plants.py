@@ -45,7 +45,7 @@ class PlantsFrame:
 
 
         for i, plant in enumerate (data_plants):
-            for i, pot in enumerate(data_pots):
+            for j, pot in enumerate(data_pots):
                 data_faker = DataFaker()
                 plant_status = self.get_plant_status(plant,     data_faker)
 
