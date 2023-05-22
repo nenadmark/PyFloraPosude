@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, joinedload
-from models.models import Base, Plant, Pot
+from models.models import Base, Plant, Pot, TemperatureReading, HumidityReading
 import random
 
 engine_inventory = create_engine("sqlite:///PyFloraDB.db", echo=True)
@@ -81,3 +81,9 @@ def update_pot(id, name=None, radius=None, image_path=None):
         if image_path is not None:
             pot.image_path = image_path
         session.commit()
+
+def get_temperature_readings(pot_id):
+    return session.query(TemperatureReading).filter(TemperatureReading.pot == pot_id).all()
+
+def get_humidity_readings(pot_id):
+    return session.query(HumidityReading).filter(HumidityReading.pot == pot_id).all()

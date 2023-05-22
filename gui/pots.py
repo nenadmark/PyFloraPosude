@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter import Toplevel, Label, Entry, StringVar, Button
-from models.crud_inventory import get_data_pots , delete_pot, update_pot
+from models.crud_inventory import get_data_pots , delete_pot, update_pot, get_temperature_readings, get_humidity_readings
+
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 class PotsFrame:
     def __init__(self, parent):
@@ -17,6 +20,32 @@ class PotsFrame:
     def on_delete(self, pot):
         delete_pot(pot.id)
         self.create_pots_frame()
+
+    def show_graphs(self, pot):
+        temperature_readings = get_temperature_readings(pot.id)
+        humidity_readings = get_humidity_readings(pot.id)
+
+        temperature_values = [reading.value for reading in  temperature_readings]
+        temperature_times = [reading.timestamp for reading in   temperature_readings]
+
+        humidity_values = [reading.value for reading in humidity_readings]
+        humidity_times = [reading.timestamp for reading in humidity_readings]
+
+        popup = Toplevel(self.pot_frame)
+        popup.title("Pot Graphs")
+
+        figure, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
+
+        ax1.plot(temperature_times, temperature_values)
+        ax1.set_title('Temperature Readings')
+
+        ax2.plot(humidity_times, humidity_values)
+        ax2.set_title('Humidity Readings')
+
+        canvas = FigureCanvasTkAgg(figure, popup)
+        canvas.get_tk_widget().pack()
+
+        popup.mainloop()
 
     def create_pots_frame(self):
         self.clear_pots_frame()
@@ -84,6 +113,14 @@ class PotsFrame:
             )
             edit_button.grid(row=i+1, column=2, pady=1, ipady=1)
             edit_button.config(bg="lightgreen")
+
+            graph_button = tk.Button(
+                self.pot_frame,
+                text="Graphs",
+                command=lambda current_pot=pot: self.show_graphs(current_pot)
+            )
+            graph_button.grid(row=i+1, column=3, pady=1, ipady=1)
+            graph_button.config(bg="lightgreen")
     
     def open_edit_pot_popup(self, pot):
         def save_changes(pot):
