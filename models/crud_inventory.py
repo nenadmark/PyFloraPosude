@@ -92,7 +92,7 @@ def update_pot(id, name=None, radius=None, humidity=None, temperature=None, imag
         session.commit()
 
 def get_temperature_readings(pot_id):
-    return session.query(TemperatureReading).filter(TemperatureReading.pot == pot_id).all()
+    return session.query(TemperatureReading).filter(TemperatureReading.pot_id == pot_id).all()
 
 def get_humidity_readings(pot_id):
-    return session.query(HumidityReading).filter(HumidityReading.pot == pot_id).all()
+    return session.query(HumidityReading).filter(HumidityReading.pot_id == pot_id).all()

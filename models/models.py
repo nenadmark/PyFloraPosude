@@ -49,7 +49,7 @@ class TemperatureReading(Base):
     id = db.Column(db.Integer, primary_key=True)
     value = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=dt.datetime.now)
-    pot = db.Column(db.String)
+    pot_id = db.Column(db.Integer, db.ForeignKey('pots.id'))
 
 class HumidityReading(Base):
     __tablename__ = "humidity_readings"
@@ -57,7 +57,7 @@ class HumidityReading(Base):
     id = db.Column(db.Integer, primary_key=True)
     value = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=dt.datetime.now)
-    pot = db.Column(db.String)
+    pot_id = db.Column(db.Integer, db.ForeignKey('pots.id'))
 
 class PressureReading(Base):
     __tablename__ = "pressure_readings"
@@ -65,4 +65,4 @@ class PressureReading(Base):
     id = db.Column(db.Integer, primary_key=True)
     value = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=dt.datetime.now)
-    pot = db.Column(db.String)
+    pot_id = db.Column(db.Integer, db.ForeignKey('pots.id'))
