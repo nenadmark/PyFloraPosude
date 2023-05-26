@@ -2,17 +2,17 @@
 
 INSERT INTO users (id, name, email, is_admin, password) VALUES ("1","admin", "admin", true, "0000");
 
-INSERT INTO plants (id, name, sort, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("1", "Crocatum", "Piper", "1", "assets\thumbs\plants\Crocatum_130x130.png", 20, 50, 1.8);
+INSERT INTO plants (id, name, sort, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("1", "Crocatum", "Piper", "1", "assets\thumbs\plants\Crocatum_130x130.png", 18, 50, 1.8);
 
-INSERT INTO plants (id, name, sort, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("2", "Deliciosa Variegated", "Monstera", "2", "assets\thumbs\plants\Deliciosa_Variegated_130x130.png", 20, 50, 1.8);
+INSERT INTO plants (id, name, sort, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("2", "Deliciosa Variegated", "Monstera", "2", "assets\thumbs\plants\Deliciosa_Variegated_130x130.png", 18, 50, 1.8);
 
-INSERT INTO plants (id, name, sort, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("3", "Fernwood Mikado", "Sansevieria", "3", "assets\thumbs\plants\Fernwood_Mikado_130x130.png", 20, 50, 1.8);
+INSERT INTO plants (id, name, sort, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("3", "Fernwood Mikado", "Sansevieria", "3", "assets\thumbs\plants\Fernwood_Mikado_130x130.png", 18, 50, 1.8);
 
-INSERT INTO plants (id, name, sort, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("4", "McDowell", "Philodendron", "4", "assets\thumbs\plants\McDowell_1_130x130.png", 20, 50, 1.8);
+INSERT INTO plants (id, name, sort, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("4", "McDowell", "Philodendron", "4", "assets\thumbs\plants\McDowell_1_130x130.png", 18, 50, 1.8);
 
-INSERT INTO plants (id, name, sort, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("5", "Paraiso Verde", "Philodendron", "5", "assets\thumbs\plants\Paraiso_Verde_130x130.png", 20, 50, 1.8);
+INSERT INTO plants (id, name, sort, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("5", "Paraiso Verde", "Philodendron", "5", "assets\thumbs\plants\Paraiso_Verde_130x130.png", 18, 50, 1.8);
 
-INSERT INTO plants (id, name, sort, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("6", "White Wizard", "Philodendron", "6", "assets\thumbs\plants\White_Wizard_130x130.png", 20, 50, 1.8);
+INSERT INTO plants (id, name, sort, p_code, image_path, ref_temperature, ref_humidity, ref_salinity) VALUES ("6", "White Wizard", "Philodendron", "6", "assets\thumbs\plants\White_Wizard_130x130.png", 18, 50, 1.8);
 
 
 INSERT INTO pots (id, name, radius, image_path, humidity, temperature) VALUES ("1", "Pablo Basket Jute Cream", 14, "assets\thumbs\pots\Pablo_Basket_Jute_Cream_130x130.png", 50, 22);
