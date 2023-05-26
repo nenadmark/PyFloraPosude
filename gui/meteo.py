@@ -155,7 +155,7 @@ class MeteoFrame:
         image_path_button.grid(row=6, column=1)
 
         image_path_label = tk.Label(popup, textvariable=image_path_var)
-        image_path_label.grid(row=7, column=2)
+        image_path_label.grid(row=7, column=1)
 
         save_button = tk.Button(popup, text="Save", command=save_plant)
         save_button.grid(row=8, column=1, pady=5)
@@ -210,10 +210,10 @@ class MeteoFrame:
         image_path_button.grid(row=4, column=1)
 
         image_path_label = tk.Label(popup, textvariable=image_path_var)
-        image_path_label.grid(row=4, column=2)
+        image_path_label.grid(row=5, column=1)
 
         save_button = tk.Button(popup, text="Save", command=save_pot)
-        save_button.grid(row=5, column=1, pady=5)
+        save_button.grid(row=6, column=1, pady=5)
 
         popup.mainloop()
 

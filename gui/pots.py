@@ -1,6 +1,6 @@
 import tkinter as tk
 import matplotlib.pyplot as plt
-from tkinter import Toplevel, Label, Entry, StringVar, Button
+from tkinter import Toplevel, Label, Entry, StringVar, Button, filedialog
 from models.crud_inventory import get_data_pots , delete_pot, update_pot, get_temperature_readings, get_humidity_readings
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -133,6 +133,10 @@ class PotsFrame:
             )
             popup.destroy()
             self.create_pots_frame()
+        
+        def open_file_dialog():
+            filepath = filedialog.askopenfilename()
+            image_path_var.set(filepath)
 
         popup = Toplevel(self.pot_frame)
         popup.title("Edit Pot")
@@ -156,10 +160,14 @@ class PotsFrame:
         Label(popup, text="Temperature:").grid(row=3, column=0)
         Entry(popup, textvariable=temperature_var).grid(row=3, column=1)
 
-        Label(popup, text="Image Path:").grid(row=4, column=0)
-        Entry(popup, textvariable=image_path_var).grid(row=4, column=1)
+        tk.Label(popup, text="Image Path:").grid(row=4, column=0)
+        image_path_button = tk.Button(popup, text="Browse", command=open_file_dialog)
+        image_path_button.grid(row=4, column=1)
+
+        image_path_label = tk.Label(popup, textvariable=image_path_var)
+        image_path_label.grid(row=5, column=1)
 
         save_button = Button(popup, text="Save Changes", command=lambda: save_changes(pot))
-        save_button.grid(row=5, column=1, pady=5)
+        save_button.grid(row=6, column=1, pady=5)
 
         popup.mainloop()

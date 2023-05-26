@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import Toplevel, Label, Entry, StringVar, Button, messagebox
+from tkinter import Toplevel, Label, Entry, StringVar, Button, messagebox, filedialog
 from models.crud_inventory import get_data_plants, get_data_pots, delete_plant, update_plant
 from gui.meteo import DataFaker
 
@@ -137,6 +137,10 @@ class PlantsFrame:
             popup.destroy()
             self.create_plants_frame()
 
+        def open_file_dialog():
+            filepath = filedialog.askopenfilename()
+            image_path_var.set(filepath)
+
         popup = Toplevel(self.plant_frame)
         popup.title("Edit Plant")
 
@@ -166,10 +170,14 @@ class PlantsFrame:
         Label(popup, text="Pot:").grid(row=5, column=0)
         Entry(popup, textvariable=p_code_var).grid(row=5, column=1)
 
-        Label(popup, text="Image Path:").grid(row=6, column=0)
-        Entry(popup, textvariable=image_path_var).grid(row=6, column=1)
+        tk.Label(popup, text="Image Path:").grid(row=6, column=0)
+        image_path_button = tk.Button(popup, text="Browse", command=open_file_dialog)
+        image_path_button.grid(row=6, column=1)
+
+        image_path_label = tk.Label(popup, textvariable=image_path_var)
+        image_path_label.grid(row=7, column=1)
 
         save_button = Button(popup, text="Save Changes", command=lambda: save_changes(plant))
-        save_button.grid(row=7, column=1, pady=5)
+        save_button.grid(row=8, column=1, pady=5)
 
         popup.mainloop()
