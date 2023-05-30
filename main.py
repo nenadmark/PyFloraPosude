@@ -68,29 +68,42 @@ def main():
     Session = sessionmaker(bind=engine_readings)
     session = Session()
 
+    def on_mouse_wheel(event):
+        canvas.yview_scroll(-int(event.delta / 120), "units")
+
+    def update_canvas_height():
+        canvas_height = min(root.winfo_height() - 100, 970)  # Adjust the padding (100) as needed
+        canvas.configure(height=canvas_height)
+        #canvas.itemconfigure(canvas_frame, height=canvas_height - 4)  # Adjust the padding
+
+    def update_scrollregion(event=None):
+        canvas.configure(scrollregion=canvas.bbox("all"))
+
+    def on_window_resize(event):
+        update_canvas_height()
+        update_scrollregion()
+
     root = tk.Tk()
     root.withdraw()
     root.resizable(False, True)
-    root.geometry("675x995")
+    root.geometry("650x950")
     root.title("PyFloraPosude")
+    root.bind("<Configure>", on_window_resize)
 
     login_window = Login(root)
 
-    canvas = tk.Canvas(root, bg="white", height=970, width=650)
+    canvas = tk.Canvas(root, bg="white", width=650)
     canvas.grid(row=0, column=0, sticky="nsew")
     scrollbar_y = tk.Scrollbar(root, orient="vertical", command=canvas.yview)
     canvas.configure(yscrollcommand=scrollbar_y.set)
     scrollbar_y.grid(row=0, column=1, sticky="ns")
-    notebook_frame = ttk.Frame(canvas)
-    canvas.create_window((0, 0), window=notebook_frame, anchor="nw")
-    
-    def on_mouse_wheel(event):
-        canvas.yview_scroll(-int(event.delta / 120), "units")
+    canvas_frame = ttk.Frame(canvas)
+    canvas.create_window((0, 0), window=canvas_frame, anchor="nw", width=650, height=0)
 
     canvas.bind_all("<MouseWheel>", on_mouse_wheel)
 
-    notebook = ttk.Notebook(notebook_frame)
-    notebook.grid(row=0, column=0)
+    notebook = ttk.Notebook(canvas_frame)
+    notebook.grid(row=0, column=0, sticky="nsew")
 
     plants_frame = PlantsFrame(notebook)
     pots_frame = PotsFrame(notebook)
@@ -99,9 +112,15 @@ def main():
     notebook.add(pots_frame.frame, text="Pots")
     notebook.add(meteo_frame.frame, text="Weather")
 
-    notebook_frame.update_idletasks()
-    canvas.configure(scrollregion=canvas.bbox("all"))
+    root.update_idletasks()
+    update_canvas_height()
+    update_scrollregion()
+
     root.mainloop()
+
 
 if __name__ == "__main__":
     main()
+
+
+
