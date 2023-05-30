@@ -28,13 +28,13 @@ class DataFaker:
         return round(rd.uniform(float(response_pressure) - 6, float(response_pressure) + 8), 1)
     
     def generate_pot_reading_temperature(self):
-        return round(rd.uniform(float(10), float(24)))
+        return round(rd.uniform(float(10), float(24)), 1)
 
     def generate_pot_reading_humidity(self):
-        return round(rd.uniform(float(20), float(50)))
+        return round(rd.uniform(float(20), float(50)), 1)
 
     def generate_pot_reading_salinity(self):
-        return round(rd.uniform(float(0.7), float(2.5)))
+        return round(rd.uniform(float(0.7), float(2.5)), 1)
                                 
 class MeteoFrame:
     def __init__(self, parent, session):
