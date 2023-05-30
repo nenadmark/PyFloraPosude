@@ -1,5 +1,7 @@
 import tkinter as tk
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+
 from tkinter import Toplevel, Label, Entry, StringVar, Button, filedialog
 from models.crud_inventory import get_data_pots , delete_pot, update_pot, get_temperature_readings, get_humidity_readings
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -23,27 +25,34 @@ class PotsFrame:
     def show_graphs(self, pot):
         temperature_readings = get_temperature_readings(pot.id)
         humidity_readings = get_humidity_readings(pot.id)
-
+    
         temperature_values = [reading.value for reading in temperature_readings]
-        temperature_times = [reading.timestamp for reading in temperature_readings]
-
+        temperature_times = [mdates.date2num(reading.timestamp) for reading in temperature_readings]
+    
         humidity_values = [reading.value for reading in humidity_readings]
-        humidity_times = [reading.timestamp for reading in humidity_readings]
-
+        humidity_times = [mdates.date2num(reading.timestamp) for reading in humidity_readings]
+    
         popup = Toplevel(self.pot_frame)
         popup.title(f"Pot #{pot.id} Graphs")
-
+    
         figure, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
-
-        ax1.plot(temperature_times, temperature_values)
+    
+        ax1.plot_date(temperature_times, temperature_values, 'r-')  # Red line
         ax1.set_title('Temperature Readings')
-
-        ax2.plot(humidity_times, humidity_values)
+    
+        ax2.plot_date(humidity_times, humidity_values, 'b-')  # Blue line
         ax2.set_title('Humidity Readings')
-
+    
+        # Set the locator and formatter for all axes
+        for ax in [ax1, ax2]:
+            locator = mdates.AutoDateLocator()
+            formatter = mdates.ConciseDateFormatter(locator)
+            ax.xaxis.set_major_locator(locator)
+            ax.xaxis.set_major_formatter(formatter)
+    
         canvas = FigureCanvasTkAgg(figure, popup)
         canvas.get_tk_widget().pack()
-
+    
         popup.mainloop()
 
     def create_pots_frame(self):
