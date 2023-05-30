@@ -1,7 +1,14 @@
 import tkinter as tk
 from tkinter import Toplevel, Label, Entry, StringVar, Button, messagebox, filedialog
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from models.crud_inventory import get_data_plants, get_data_pots, delete_plant, update_plant
+from models.models import TemperatureReading, HumidityReading
 from gui.meteo import DataFaker
+
+engine = create_engine('sqlite:///PyFloraDB.db')
+Session = sessionmaker(bind=engine)
+session = Session()
 
 class PlantsFrame:
     def __init__(self, parent):
@@ -24,7 +31,13 @@ class PlantsFrame:
         gen_humidity = data_faker.generate_pot_reading_humidity()
         gen_salinity = data_faker.generate_pot_reading_salinity()
 
-        if gen_humidity < plant.ref_humidity:
+        new_temperature_reading = TemperatureReading(value=gen_temperature, pot_id=plant.id)
+        new_humidity_reading = HumidityReading(value=gen_humidity, pot_id=plant.id)
+        session.add(new_temperature_reading)
+        session.add(new_humidity_reading)
+        session.commit()
+
+        if gen_humidity > plant.ref_humidity:
             return "Needs Watering"
         elif gen_temperature < plant.ref_temperature:
             return "Needs More Temperature"
